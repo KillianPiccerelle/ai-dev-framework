@@ -1,26 +1,16 @@
 # Adding an agent to the framework
 
-## Agent structure
+## Agent file structure
 
-Each agent is a Markdown file in `agents/fr/` and `agents/en/`.
-
-```
-agents/
-├── fr/
-│   └── my-agent.md
-└── en/
-    └── my-agent.md
-```
-
-## File format
+Create agents/my-agent.md with this format:
 
 ```markdown
 ---
 name: my-agent
 description: >
-  Clear and concise description. Explains what the agent does,
-  in what context to invoke it, and what it doesn't do.
-  This description is read by Claude to decide if the agent is relevant.
+  Clear description. Explains what the agent does, when to invoke it,
+  and what it does NOT do. This description is read by Claude to decide
+  if the agent is relevant for a given request.
 tools: [Read, Write, Edit, Bash, Grep, Glob]
 model: sonnet
 readonly: false
@@ -31,32 +21,25 @@ Agent system instructions...
 
 ## Frontmatter fields
 
-**name**: unique identifier, kebab-case, matches the file name.
+**name**: unique identifier, kebab-case, matches filename.
 
-**description**: used by Claude to decide if the agent is relevant.
-Must answer: when to invoke it, what it produces, what it doesn't do.
+**description**: used by Claude to determine relevance.
+Answer: when to invoke, what it produces, what it avoids.
 
-**tools**: list of allowed tools. Least privilege principle:
-grant only what is necessary.
-- `Read`: read files
-- `Write`: create files
-- `Edit`: modify existing files
-- `Bash`: execute commands
-- `Grep`: search in files
-- `Glob`: list files by pattern
+**tools**: least privilege principle — grant only what is needed.
+Read, Write, Edit, Bash, Grep, Glob.
 
-**model**: `opus` for complex tasks (architecture, decisions),
-`sonnet` for common tasks, `haiku` for quick validations.
+**model**: opus (complex tasks), sonnet (standard), haiku (quick validations).
 
-**readonly**: `true` if the agent must never modify files.
+**readonly**: true if the agent must never modify files.
 
 ## Writing rules
 
-The agent must know what to read in `memory/` before acting.
-The agent must know what to produce and where to put it.
-The agent must have a clear rule about what it doesn't do.
+The agent must know what to read in memory/ before acting.
+The agent must know what to produce and where.
+The agent must have a clear rule about what it does NOT do.
 
-## Publish after adding
+## Publishing after adding
 
 ```bash
 ./scripts/publish.sh

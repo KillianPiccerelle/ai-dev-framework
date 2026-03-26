@@ -1,131 +1,104 @@
 #!/usr/bin/env bash
 set -e
 
-# ai-dev-framework — init-project.sh
-# Usage: ./init-project.sh [lang] [template]
-# lang     : fr | en  (default: fr)
-# template : saas | api-backend | fullstack-web  (default: saas)
+# ai-dev-framework v3 — Project initialization
+# Usage: ./scripts/init-project.sh [template]
+# template: saas | api-backend | fullstack-web | ai-app (default: saas)
 
-LANG=${1:-"fr"}
-TEMPLATE=${2:-"saas"}
+TEMPLATE=${1:-"saas"}
 FRAMEWORK_DIR="$(cd "$(dirname "$0")/.." && pwd)"
 TARGET_DIR="${PWD}"
 
 GREEN='\033[0;32m'; BLUE='\033[0;34m'; YELLOW='\033[1;33m'; NC='\033[0m'
-log()  { echo -e "${BLUE}[ai-dev-framework]${NC} $1"; }
+log()  { echo -e "${BLUE}[ai-dev-framework v3]${NC} $1"; }
 ok()   { echo -e "${GREEN}[ok]${NC} $1"; }
 warn() { echo -e "${YELLOW}[warn]${NC} $1"; }
 
-log "Init — lang: $LANG | template: $TEMPLATE | target: $TARGET_DIR"
+log "Init project — template: $TEMPLATE | target: $TARGET_DIR"
 
-# ─── Détection d'un projet existant ──────────────────────────────────────────
+# ─── Detect existing project ──────────────────────────────────────────────────
 HAS_CLAUDE_MD=false
-HAS_CLAUDE_DIR=false
 HAS_MEMORY=false
+HAS_CLAUDE_DIR=false
 
 [ -f "$TARGET_DIR/CLAUDE.md" ]  && HAS_CLAUDE_MD=true
-[ -d "$TARGET_DIR/.claude" ]    && HAS_CLAUDE_DIR=true
 [ -d "$TARGET_DIR/memory" ]     && HAS_MEMORY=true
+[ -d "$TARGET_DIR/.claude" ]    && HAS_CLAUDE_DIR=true
 
-if $HAS_CLAUDE_MD || $HAS_CLAUDE_DIR || $HAS_MEMORY; then
-  if [ "$LANG" = "fr" ]; then
-    warn "Configuration Claude détectée dans ce projet."
-    warn "Mode mise à jour — aucun fichier existant ne sera écrasé."
-    warn "Lance /analyze-project dans Claude Code pour une migration complète."
-  else
-    warn "Claude configuration detected in this project."
-    warn "Update mode — no existing files will be overwritten."
-    warn "Run /analyze-project in Claude Code for a full migration."
-  fi
+if $HAS_CLAUDE_MD || $HAS_MEMORY || $HAS_CLAUDE_DIR; then
+  warn "Existing Claude configuration detected."
+  warn "Update mode — no existing files will be overwritten."
+  warn "Run /analyze-project or /upgrade-framework in Claude Code for full migration."
   echo ""
 fi
 
-# ─── Backup du CLAUDE.md si format ancien ─────────────────────────────────────
+# ─── Backup old CLAUDE.md if not v3 format ────────────────────────────────────
 if $HAS_CLAUDE_MD; then
-  # Détecter si c'est le format du framework (contient la section "Agents disponibles")
-  if ! grep -q "Agents disponibles\|Available agents" "$TARGET_DIR/CLAUDE.md" 2>/dev/null; then
-    warn "CLAUDE.md existant (format ancien) → sauvegardé en CLAUDE.backup.md"
+  if ! grep -q "ai-dev-framework v3" "$TARGET_DIR/CLAUDE.md" 2>/dev/null; then
+    warn "Old CLAUDE.md detected → backing up as CLAUDE.backup.md"
     cp "$TARGET_DIR/CLAUDE.md" "$TARGET_DIR/CLAUDE.backup.md"
-    # Ajouter au .gitignore
-    if [ -f "$TARGET_DIR/.gitignore" ] && ! grep -q "CLAUDE.backup.md" "$TARGET_DIR/.gitignore"; then
+    grep -q "CLAUDE.backup.md" "$TARGET_DIR/.gitignore" 2>/dev/null || \
       echo "CLAUDE.backup.md" >> "$TARGET_DIR/.gitignore"
-    fi
-    ok "CLAUDE.backup.md créé"
-    # On peut maintenant écrire le nouveau CLAUDE.md
+    ok "CLAUDE.backup.md created — delete after verifying migration"
     HAS_CLAUDE_MD=false
   else
-    log "CLAUDE.md déjà au format du framework — conservé tel quel."
+    log "CLAUDE.md already v3 format — keeping as-is"
   fi
 fi
 
-# ─── Structure mémoire ────────────────────────────────────────────────────────
+# ─── Memory structure ─────────────────────────────────────────────────────────
 mkdir -p "$TARGET_DIR/memory/decisions" \
          "$TARGET_DIR/memory/conventions" \
          "$TARGET_DIR/memory/domain" \
-         "$TARGET_DIR/.claude/commands"
+         "$TARGET_DIR/.claude/commands" \
+         "$TARGET_DIR/docs"
 
-# Copier les templates mémoire (uniquement les fichiers absents)
-MEMORY_TEMPLATES=(
-  "project-context.md"
-  "stack.md"
-  "architecture.md"
-  "progress.md"
-)
-for f in "${MEMORY_TEMPLATES[@]}"; do
+for f in project-context.md stack.md architecture.md progress.md; do
   DEST="$TARGET_DIR/memory/$f"
-  SRC="$FRAMEWORK_DIR/memory/$LANG/$f"
+  SRC="$FRAMEWORK_DIR/memory/$f"
   if [ ! -f "$DEST" ] && [ -f "$SRC" ]; then
     cp "$SRC" "$DEST"
-    ok "memory/$f créé depuis le template"
-  elif [ -f "$DEST" ]; then
-    log "memory/$f conservé (existait déjà)"
+    ok "memory/$f created"
+  else
+    [ -f "$DEST" ] && log "memory/$f preserved"
   fi
 done
 
-# Conventions (uniquement les fichiers absents)
-CONV_FILES=("naming.md" "error-handling.md" "commit-format.md")
-for f in "${CONV_FILES[@]}"; do
+for f in naming.md error-handling.md commit-format.md; do
   DEST="$TARGET_DIR/memory/conventions/$f"
-  SRC="$FRAMEWORK_DIR/memory/$LANG/conventions/$f"
+  SRC="$FRAMEWORK_DIR/memory/conventions/$f"
   if [ ! -f "$DEST" ] && [ -f "$SRC" ]; then
     cp "$SRC" "$DEST"
-    ok "memory/conventions/$f créé depuis le template"
-  elif [ -f "$DEST" ]; then
-    log "memory/conventions/$f conservé (existait déjà)"
+    ok "memory/conventions/$f created"
   fi
 done
 
 # ─── CLAUDE.md ────────────────────────────────────────────────────────────────
 if ! $HAS_CLAUDE_MD; then
-  TEMPLATE_CLAUDE="$FRAMEWORK_DIR/templates/$TEMPLATE/$LANG/CLAUDE.md"
+  TEMPLATE_CLAUDE="$FRAMEWORK_DIR/templates/$TEMPLATE/CLAUDE.md"
   if [ -f "$TEMPLATE_CLAUDE" ]; then
     cp "$TEMPLATE_CLAUDE" "$TARGET_DIR/CLAUDE.md"
-    ok "CLAUDE.md ($TEMPLATE/$LANG) appliqué"
+    ok "CLAUDE.md ($TEMPLATE template) applied"
   fi
 fi
 
 # ─── Workflows → .claude/commands/ ───────────────────────────────────────────
-WORKFLOWS_DIR="$FRAMEWORK_DIR/workflows/$LANG"
-if [ -d "$WORKFLOWS_DIR" ]; then
-  for wf in "$WORKFLOWS_DIR"/*.md; do
-    WF_NAME=$(basename "$wf")
-    DEST="$TARGET_DIR/.claude/commands/$WF_NAME"
-    if [ ! -f "$DEST" ]; then
-      cp "$wf" "$DEST"
-      ok "workflow $WF_NAME installé"
-    else
-      # Proposer la version du framework sans écraser
-      cp "$wf" "$TARGET_DIR/.claude/commands/${WF_NAME%.md}.framework.md"
-      log "workflow $WF_NAME existant conservé — version framework dans ${WF_NAME%.md}.framework.md"
-    fi
-  done
-fi
+for wf in "$FRAMEWORK_DIR/workflows/"*.md; do
+  WF_NAME=$(basename "$wf")
+  DEST="$TARGET_DIR/.claude/commands/$WF_NAME"
+  if [ ! -f "$DEST" ]; then
+    cp "$wf" "$DEST"
+    ok "workflow $WF_NAME installed"
+  else
+    cp "$wf" "$TARGET_DIR/.claude/commands/${WF_NAME%.md}.framework.md"
+    log "$WF_NAME preserved — framework version saved as ${WF_NAME%.md}.framework.md"
+  fi
+done
 
 # ─── Hooks ───────────────────────────────────────────────────────────────────
-if [ ! -f "$TARGET_DIR/.claude/hooks.json" ] && \
-   [ -f "$FRAMEWORK_DIR/hooks/hooks.json" ]; then
+if [ ! -f "$TARGET_DIR/.claude/hooks.json" ] && [ -f "$FRAMEWORK_DIR/hooks/hooks.json" ]; then
   cp "$FRAMEWORK_DIR/hooks/hooks.json" "$TARGET_DIR/.claude/hooks.json"
-  ok "hooks.json installé"
+  ok "hooks.json installed"
 fi
 
 # ─── settings.json ───────────────────────────────────────────────────────────
@@ -140,27 +113,27 @@ if [ ! -f "$TARGET_DIR/.claude/settings.json" ]; then
   }
 }
 EOF
-  ok "settings.json créé"
+  ok "settings.json created"
 fi
 
 # ─── .gitignore ──────────────────────────────────────────────────────────────
 if [ ! -f "$TARGET_DIR/.gitignore" ]; then
   cat > "$TARGET_DIR/.gitignore" << 'EOF'
-# ai-dev-framework — mémoire locale (ne pas commiter les données sensibles)
+# ai-dev-framework v3
+CLAUDE.backup.md
 memory/project-context.md
 memory/stack.md
 memory/architecture.md
 memory/progress.md
 memory/domain/
 *.local.md
-CLAUDE.backup.md
 
-# Environnement
+# Environment
 .env
 .env.*
 .env.local
 
-# Dépendances
+# Dependencies
 node_modules/
 __pycache__/
 *.pyc
@@ -172,45 +145,28 @@ build/
 .next/
 out/
 EOF
-  ok ".gitignore créé"
+  ok ".gitignore created"
 else
-  # Ajouter les entrées manquantes
   for entry in "CLAUDE.backup.md" "memory/architecture.md"; do
     if ! grep -q "$entry" "$TARGET_DIR/.gitignore"; then
       echo "$entry" >> "$TARGET_DIR/.gitignore"
-      ok ".gitignore mis à jour — ajout de $entry"
+      ok ".gitignore updated — added $entry"
     fi
   done
 fi
 
-# ─── Résumé ───────────────────────────────────────────────────────────────────
+# ─── Summary ─────────────────────────────────────────────────────────────────
 echo ""
-ok "Initialisation terminée."
+ok "Project initialized — template: $TEMPLATE"
 echo ""
-if [ "$LANG" = "fr" ]; then
-  echo "  Langue   : $LANG"
-  echo "  Template : $TEMPLATE"
-  echo ""
-  echo "Prochaines étapes :"
-  if $HAS_CLAUDE_MD || $HAS_CLAUDE_DIR || $HAS_MEMORY; then
-    echo "  1. Lance : claude"
-    echo "  2. Lance : /analyze-project  (migration complète)"
-  else
-    echo "  1. Complète memory/project-context.md avec ton contexte"
-    echo "  2. Lance : claude"
-    echo "  3. Lance : /new-project"
-  fi
+if $HAS_CLAUDE_MD || $HAS_MEMORY || $HAS_CLAUDE_DIR; then
+  echo "Existing project detected. Recommended:"
+  echo "  1. Run: claude"
+  echo "  2. Run: /analyze-project   (if new to framework)"
+  echo "     or : /upgrade-framework (if upgrading from v1/v2)"
 else
-  echo "  Language : $LANG"
-  echo "  Template : $TEMPLATE"
-  echo ""
   echo "Next steps:"
-  if $HAS_CLAUDE_MD || $HAS_CLAUDE_DIR || $HAS_MEMORY; then
-    echo "  1. Run: claude"
-    echo "  2. Run: /analyze-project  (full migration)"
-  else
-    echo "  1. Fill in memory/project-context.md"
-    echo "  2. Run: claude"
-    echo "  3. Run: /new-project"
-  fi
+  echo "  1. Fill in memory/project-context.md"
+  echo "  2. Run: claude"
+  echo "  3. Run: /new-project"
 fi

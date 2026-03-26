@@ -1,95 +1,68 @@
-# ai-dev-framework-en
+# ai-dev-framework
 
-> Personal AI-assisted development framework
+> Personal AI-assisted development framework — v3
 
-**Author:** [KillianPiccerelle](https://github.com/KillianPiccerelle)  
-**French version:** [ai-dev-framework-fr](https://github.com/KillianPiccerelle/ai-dev-framework-fr)
+**Author:** [KillianPiccerelle](https://github.com/KillianPiccerelle)
+**Docs:** [English](docs/en/) · [Français](docs/fr/)
 
 ---
 
-A reusable framework for building complete applications with specialized
-AI agents. Centralizes agents, skills, workflows, project memory,
-and ready-to-use templates.
-
 ## What's inside
 
-**11 specialized agents** covering the full development cycle:
-orchestrator, architect, stack-advisor, project-analyzer, backend-dev,
-frontend-dev, debug, test-engineer, code-reviewer, doc-writer, verifier.
+**13 specialized agents** covering the full development cycle:
+orchestrator, architect, stack-advisor, project-analyzer, codebase-analyst,
+backend-dev, frontend-dev, debug, test-engineer, qa-engineer,
+code-reviewer, doc-writer, verifier.
 
-**5 core skills** invokable via slash command:
-stack-advisor, jwt-auth, rest-crud, schema-design, tdd-workflow.
+**9 workflows** for every situation:
+new-project, analyze-project, map-project, add-feature,
+debug-issue, refactor, gen-tests, project-status, upgrade-framework.
 
-**3 complete workflows** that orchestrate agents in the right order:
-new-project, analyze-project, add-feature, debug-issue, refactor, gen-tests.
+**5 core skills**, **4 project templates** (SaaS, API, Fullstack, AI-app),
+**persistent memory system**, **automation hooks**.
 
-**3 project templates** with pre-configured CLAUDE.md:
-SaaS, API backend, Fullstack web.
-
-**Persistent project memory** structured in 6 types:
-context, stack, architecture, conventions, ADRs, business domain.
-
-**Automation hooks** for formatting, secret detection,
-and context saving.
-
-## Installation
+## Install
 
 ```bash
-git clone https://github.com/KillianPiccerelle/ai-dev-framework-en.git ~/ai-dev-framework
-cd ~/ai-dev-framework
-chmod +x install.sh
-
-# Install agents and skills globally
-./install.sh
+git clone https://github.com/KillianPiccerelle/ai-dev-framework.git ~/ai-dev-framework
+cd ~/ai-dev-framework && chmod +x scripts/install.sh && ./scripts/install.sh
 ```
 
-## Start a new project
+## New project
 
 ```bash
-# In your project folder
-~/ai-dev-framework/install.sh en saas   # or api-backend, fullstack-web
-
-# Open Claude Code
-claude
-
-# Launch the startup workflow
-/new-project
+cd my-project
+~/ai-dev-framework/scripts/init-project.sh saas
+claude && /new-project
 ```
 
-## Daily usage
+## Existing project
 
-```
-/new-project        → Scope and architect a new project
-/analyze-project    → Analyze an existing project, generate memory/
-/add-feature        → Add a feature (full TDD)
-/debug-issue        → Analyze and resolve a bug
-/refactor           → Refactor existing code
-/gen-tests          → Generate tests for existing code
-/stack-advisor      → Recommend a technical stack
-/jwt-auth           → Implement JWT authentication
-/rest-crud          → Create a complete REST endpoint
-/schema-design      → Design a database schema
-/tdd-workflow       → Apply TDD methodology
+```bash
+cd my-existing-project
+~/ai-dev-framework/scripts/init-project.sh
+claude && /analyze-project
 ```
 
-## Structure
+## Migrate from v2
 
-```
-ai-dev-framework-en/
-├── agents/          → 11 specialized AI agents
-├── skills/          → 5 invokable skills
-├── workflows/       → 6 orchestrated workflows
-├── memory/          → Project memory templates
-├── templates/       → Project skeletons (SaaS, API, Fullstack)
-├── hooks/           → Claude Code automations
-├── docs/            → Framework documentation
-└── install.sh       → Installation script
+```bash
+cd my-project && claude && /upgrade-framework
 ```
 
-## Contributing
+## Commands
 
-Contributions are welcome. See [docs/adding-agent.md](docs/adding-agent.md).
+```
+/new-project        → Scope and architect from scratch
+/analyze-project    → Analyze existing project, generate memory/
+/map-project        → Generate full project map (docs/project-map.md)
+/add-feature        → Add feature with full TDD
+/debug-issue        → Root cause analysis and fix
+/refactor           → Safe incremental refactoring
+/gen-tests          → Coverage audit + targeted test generation
+/project-status     → Health and progress report
+/upgrade-framework  → Migrate from older framework version
+```
 
 ## License
-
 MIT — [KillianPiccerelle](https://github.com/KillianPiccerelle)

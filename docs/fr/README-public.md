@@ -1,95 +1,68 @@
-# ai-dev-framework-fr
+# ai-dev-framework
 
-> Framework personnel de développement assisté par IA
+> Framework personnel de développement assisté par IA — v3
 
-**Auteur:** [KillianPiccerelle](https://github.com/KillianPiccerelle)  
-**Version anglaise:** [ai-dev-framework-en](https://github.com/KillianPiccerelle/ai-dev-framework-en)
+**Auteur :** [KillianPiccerelle](https://github.com/KillianPiccerelle)
+**Docs :** [English](docs/en/) · [Français](docs/fr/)
 
 ---
 
-Un framework réutilisable pour développer des applications complètes avec
-l'aide d'agents IA spécialisés. Il centralise les agents, les skills,
-les workflows, la mémoire projet et des templates prêts à l'emploi.
+## Contenu
 
-## Ce que contient ce framework
+**13 agents spécialisés** couvrant tout le cycle de développement :
+orchestrator, architect, stack-advisor, project-analyzer, codebase-analyst,
+backend-dev, frontend-dev, debug, test-engineer, qa-engineer,
+code-reviewer, doc-writer, verifier.
 
-**11 agents spécialisés** qui couvrent tout le cycle de développement :
-orchestrator, architect, stack-advisor, project-analyzer, backend-dev, frontend-dev,
-debug, test-engineer, code-reviewer, doc-writer, verifier.
+**9 workflows** pour toutes les situations :
+new-project, analyze-project, map-project, add-feature,
+debug-issue, refactor, gen-tests, project-status, upgrade-framework.
 
-**5 skills fondamentaux** invocables par slash command :
-stack-advisor, jwt-auth, rest-crud, schema-design, tdd-workflow.
-
-**6 workflows complets** qui orchestrent les agents dans le bon ordre :
-new-project, analyze-project, add-feature, debug-issue, refactor, gen-tests.
-
-**3 templates de projets** avec CLAUDE.md pré-configuré :
-SaaS, API backend, Fullstack web.
-
-**Mémoire projet persistante** structurée en 6 types :
-contexte, stack, architecture, conventions, ADRs, domaine métier.
-
-**Hooks d'automatisation** pour le formatage, la détection de secrets
-et la sauvegarde de contexte.
+**5 skills**, **4 templates** (SaaS, API, Fullstack, AI-app),
+**système de mémoire persistant**, **hooks d'automatisation**.
 
 ## Installation
 
 ```bash
-git clone https://github.com/KillianPiccerelle/ai-dev-framework-fr.git ~/ai-dev-framework
-cd ~/ai-dev-framework
-chmod +x install.sh
-
-# Installer les agents et skills globalement
-./install.sh
+git clone https://github.com/KillianPiccerelle/ai-dev-framework.git ~/ai-dev-framework
+cd ~/ai-dev-framework && chmod +x scripts/install.sh && ./scripts/install.sh
 ```
 
-## Démarrer un nouveau projet
+## Nouveau projet
 
 ```bash
-# Dans le dossier de ton projet
-~/ai-dev-framework/install.sh fr saas   # ou api-backend, fullstack-web
-
-# Ouvrir Claude Code
-claude
-
-# Lancer le workflow de démarrage
-/new-project
+cd mon-projet
+~/ai-dev-framework/scripts/init-project.sh saas
+claude && /new-project
 ```
 
-## Utilisation quotidienne
+## Projet existant
+
+```bash
+cd mon-projet-existant
+~/ai-dev-framework/scripts/init-project.sh
+claude && /analyze-project
+```
+
+## Migrer depuis v2
+
+```bash
+cd mon-projet && claude && /upgrade-framework
+```
+
+## Commandes
 
 ```
-/new-project        → Cadrer et architecturer un nouveau projet
+/new-project        → Cadrer et architecturer depuis zéro
 /analyze-project    → Analyser un projet existant, générer memory/
-/add-feature        → Ajouter une fonctionnalité (TDD complet)
-/debug-issue        → Analyser et résoudre un bug
-/refactor           → Refactoriser du code existant
-/gen-tests          → Générer des tests pour du code existant
-/stack-advisor      → Recommander une stack technique
-/jwt-auth           → Implémenter l'authentification JWT
-/rest-crud          → Créer un endpoint REST complet
-/schema-design      → Concevoir un schéma de base de données
-/tdd-workflow       → Appliquer la méthodologie TDD
+/map-project        → Générer la carte complète du projet
+/add-feature        → Ajouter une feature avec TDD complet
+/debug-issue        → Analyse de cause racine et correction
+/refactor           → Refactoring incrémental sécurisé
+/gen-tests          → Audit de couverture + génération de tests
+/project-status     → Rapport de santé et de progression
+/upgrade-framework  → Migrer depuis une ancienne version du framework
 ```
-
-## Structure
-
-```
-ai-dev-framework-fr/
-├── agents/          → 11 agents IA spécialisés
-├── skills/          → 5 skills invocables
-├── workflows/       → 6 workflows orchestrés
-├── memory/          → Templates de mémoire projet
-├── templates/       → Squelettes de projets (SaaS, API, Fullstack)
-├── hooks/           → Automations Claude Code
-├── docs/            → Documentation du framework
-└── install.sh       → Script d'installation
-```
-
-## Contribuer
-
-Les contributions sont les bienvenues. Voir [docs/adding-agent.md](docs/adding-agent.md).
 
 ## Licence
-
 MIT — [KillianPiccerelle](https://github.com/KillianPiccerelle)

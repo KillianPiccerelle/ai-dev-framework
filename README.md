@@ -1,80 +1,113 @@
-# ai-dev-framework (source)
+# ai-dev-framework
 
-> Repo source privé — contient les versions FR et EN du framework.
-> Ne pas publier directement. Utiliser `./scripts/publish.sh` pour générer les repos publics.
+> Personal AI-assisted development framework — v3
 
-**Auteur:** [KillianPiccerelle](https://github.com/KillianPiccerelle)
-
----
-
-## Repos publics générés
-
-| Repo | Langue | URL |
-|------|--------|-----|
-| ai-dev-framework-fr | Français | https://github.com/KillianPiccerelle/ai-dev-framework-fr |
-| ai-dev-framework-en | English  | https://github.com/KillianPiccerelle/ai-dev-framework-en |
+**Author:** [KillianPiccerelle](https://github.com/KillianPiccerelle)
+**Version:** 3.0.0
 
 ---
 
-## Travailler sur le framework
+## What's inside
 
-Toutes les modifications se font ici, dans ce repo source.
-Chaque fichier existe en double : `agents/fr/` et `agents/en/`, etc.
+**13 specialized agents** covering the full development cycle:
+orchestrator, architect, stack-advisor, project-analyzer, codebase-analyst,
+backend-dev, frontend-dev, debug, test-engineer, qa-engineer,
+code-reviewer, doc-writer, verifier.
 
-Quand tu modifies un agent ou un skill, mets à jour les deux versions
-dans le même commit pour garder les deux langues en sync.
+**9 workflows** for every development situation:
+new-project, analyze-project, map-project, add-feature,
+debug-issue, refactor, gen-tests, project-status, upgrade-framework.
 
-## Publier une mise à jour
+**5 core skills**, **4 project templates** (SaaS, API, Fullstack, AI-app),
+**persistent memory system**, **automation hooks**.
+
+---
+
+## Install
 
 ```bash
-# Publier les deux langues
-./scripts/publish.sh
-
-# Publier uniquement le français
-./scripts/publish.sh fr
-
-# Publier uniquement l'anglais
-./scripts/publish.sh en
+git clone https://github.com/KillianPiccerelle/ai-dev-framework.git ~/ai-dev-framework
+cd ~/ai-dev-framework
+chmod +x scripts/install.sh
+./scripts/install.sh
 ```
 
-## Structure du repo source
+## New project
+
+```bash
+cd my-project
+~/ai-dev-framework/scripts/init-project.sh saas
+claude
+/new-project
+```
+
+## Existing project
+
+```bash
+cd my-existing-project
+~/ai-dev-framework/scripts/init-project.sh
+claude
+/analyze-project
+```
+
+## Migrate from v1/v2
+
+```bash
+cd my-project
+~/ai-dev-framework/scripts/init-project.sh
+claude
+/upgrade-framework
+```
+
+---
+
+## Available commands
 
 ```
-ai-dev-framework/        ← ce repo (privé)
-├── agents/
-│   ├── fr/              ← agents en français
-│   └── en/              ← agents en anglais
-├── skills/
-│   ├── fr/              ← skills en français
-│   └── en/              ← skills en anglais
-├── workflows/
-│   ├── fr/              ← workflows en français
-│   └── en/              ← workflows en anglais
-├── memory/
-│   ├── fr/              ← templates mémoire en français
-│   └── en/              ← templates mémoire en anglais
-├── templates/           ← templates de projets (neutres)
-├── hooks/               ← automations (neutres)
-├── prompts/
-│   ├── fr/
-│   └── en/
+/new-project        → Scope and architect a new project from scratch
+/analyze-project    → Analyze an existing project, generate memory/
+/map-project        → Generate a full project map (docs/project-map.md)
+/add-feature        → Add a feature with full TDD cycle
+/debug-issue        → Root cause analysis and fix
+/refactor           → Safe incremental refactoring
+/gen-tests          → Coverage audit + targeted test generation
+/project-status     → Health and progress report
+/upgrade-framework  → Migrate from older framework version to v3
+```
+
+---
+
+## Structure
+
+```
+ai-dev-framework/
+├── agents/           → 13 specialized AI agents (English)
+├── workflows/        → 9 orchestrated workflows (English)
+├── skills/           → 5 invokable skills
+├── memory/           → Project memory templates
+├── templates/        → SaaS · API · Fullstack · AI-app
+├── hooks/            → Claude Code automation hooks
 ├── docs/
-│   ├── fr/
-│   └── en/
+│   ├── en/           → English documentation
+│   └── fr/           → French documentation
 └── scripts/
-    ├── publish.sh       ← génère et pousse les repos publics
-    └── init-project.sh  ← initialise un nouveau projet
+    ├── install.sh    → Global one-time installation
+    └── init-project.sh → Per-project initialization
 ```
 
-## Ajouter un agent
+---
 
-1. Créer `agents/fr/nom-agent.md`
-2. Créer `agents/en/nom-agent.md`
-3. Mettre à jour `docs/fr/agents.md` et `docs/en/agents.md`
-4. Lancer `./scripts/publish.sh`
+## Documentation
 
-## Ajouter un skill
+- [English docs](docs/en/)
+- [Documentation française](docs/fr/)
+- [Migration v2 → v3](docs/en/migration-v2-v3.md)
+- [Adding an agent](docs/en/adding-agent.md)
 
-1. Créer `skills/fr/domaine/nom/SKILL.md`
-2. Créer `skills/en/domaine/nom/SKILL.md`
-3. Lancer `./scripts/publish.sh`
+## Contributing
+
+Contributions welcome. See [docs/en/adding-agent.md](docs/en/adding-agent.md).
+
+## License
+
+MIT — [KillianPiccerelle](https://github.com/KillianPiccerelle)

@@ -1,55 +1,24 @@
-# ai-dev-framework — Repo source
+# ai-dev-framework v3
 
-## Contexte
-Ce repo est le repo source privé du framework ai-dev-framework.
-Il contient les versions FR et EN de tous les fichiers.
+## Overview
+Public framework for AI-assisted development with Claude Code.
+Single repository, English core, bilingual docs (fr/en).
 
-## Agents disponibles (11)
-orchestrator · architect · stack-advisor · project-analyzer
-backend-dev · frontend-dev · debug · test-engineer
+## Agents (13)
+orchestrator · architect · stack-advisor · project-analyzer · codebase-analyst
+backend-dev · frontend-dev · debug · test-engineer · qa-engineer
 code-reviewer · doc-writer · verifier
 
-## Workflows disponibles (6)
-/new-project · /analyze-project · /add-feature
-/debug-issue · /refactor · /gen-tests
+## Workflows (9)
+/new-project · /analyze-project · /map-project · /add-feature
+/debug-issue · /refactor · /gen-tests · /project-status · /upgrade-framework
 
-## Skills disponibles (5)
+## Skills (5)
 /stack-advisor · /jwt-auth · /rest-crud · /schema-design · /tdd-workflow
 
-## Règles de travail sur ce repo
+## Working on this repo
+All agents, workflows, and skills are in English — single source of truth.
+Docs are bilingual: docs/fr/ and docs/en/.
 
-Chaque fichier doit exister en deux versions : dossier/fr/ et dossier/en/.
-Quand tu modifies un agent ou un skill, mets à jour les deux langues
-dans le même commit.
-
-## Publier une mise à jour
-
-```bash
-./scripts/publish.sh        # publie FR et EN
-./scripts/publish.sh fr     # publie uniquement FR
-./scripts/publish.sh en     # publie uniquement EN
-```
-
-## Ajouter un agent
-
-1. Créer agents/fr/nom-agent.md
-2. Créer agents/en/nom-agent.md
-3. Mettre à jour docs/fr/adding-agent.md et docs/en/adding-agent.md
-4. ./scripts/publish.sh
-
-## Ajouter un skill
-
-1. Créer skills/fr/domaine/nom/SKILL.md
-2. Créer skills/en/domaine/nom/SKILL.md
-3. ./scripts/publish.sh
-
-## Ajouter un workflow
-
-1. Créer workflows/fr/nom-workflow.md
-2. Créer workflows/en/nom-workflow.md
-3. ./scripts/publish.sh
-
-## Structure des repos publics générés
-
-ai-dev-framework-fr → https://github.com/KillianPiccerelle/ai-dev-framework-fr
-ai-dev-framework-en → https://github.com/KillianPiccerelle/ai-dev-framework-en
+## Contributing
+See docs/en/contributing.md or docs/fr/contributing.md.
