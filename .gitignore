@@ -1,5 +1,29 @@
+# ai-dev-framework v3 — project gitignore
+CLAUDE.backup.md
+memory/project-context.md
+memory/stack.md
+memory/architecture.md
+memory/progress.md
+memory/domain/
+*.local.md
+
+# Environment
+.env
+.env.*
+.env.local
+
+# Dependencies
+node_modules/
+__pycache__/
+*.pyc
+vendor/
+
+# Build
+dist/
+build/
+.next/
+out/
+
+# OS
 .DS_Store
 Thumbs.db
-/tmp/
-*.swp
-*.swo

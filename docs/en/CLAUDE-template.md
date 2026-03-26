@@ -1,4 +1,4 @@
-# ai-dev-framework — Claude Code configuration
+# ai-dev-framework v3 — Claude Code configuration
 
 ## Language
 English
@@ -13,17 +13,18 @@ Invoke: "use the [name] agent" or naturally in Claude Code.
 | orchestrator | Coordinates and delegates to other agents | sonnet |
 | architect | Designs architecture, produces ADRs | opus |
 | stack-advisor | Recommends technical stack | sonnet |
+| project-analyzer | Analyzes existing projects, generates memory/ | opus |
+| codebase-analyst | Deep repository analysis, supports other agents | sonnet |
 | backend-dev | Implements API, DB, business logic | sonnet |
 | frontend-dev | Implements UI, components, state | sonnet |
 | debug | Analyzes bugs, finds root cause | sonnet |
 | test-engineer | Writes tests, applies TDD | sonnet |
+| qa-engineer | Advanced testing, edge cases, security detection | sonnet |
 | code-reviewer | Audits code in read-only mode | sonnet |
 | doc-writer | Writes and updates documentation | sonnet |
 | verifier | Validates completed work | haiku |
 
 ## Available skills
-
-Copy files from `skills/` into `~/.claude/skills/` to activate globally.
 
 | Skill | Command | Usage |
 |-------|---------|-------|
@@ -40,8 +41,14 @@ Copy files from `workflows/` into `.claude/commands/` of your project.
 | Workflow | Command | Usage |
 |----------|---------|-------|
 | New project | `/new-project` | Starts a project from scratch |
-| Add feature | `/add-feature` | Adds a feature |
-| Debug | `/debug-issue` | Analyzes and resolves a bug |
+| Analyze project | `/analyze-project` | Analyzes existing project, generates memory/ |
+| Map project | `/map-project` | Generates full project map (docs/project-map.md) |
+| Add feature | `/add-feature` | Adds a feature with full TDD |
+| Debug | `/debug-issue` | Root cause analysis and fix |
+| Refactor | `/refactor` | Safe incremental refactoring |
+| Generate tests | `/gen-tests` | Coverage audit + targeted test generation |
+| Project status | `/project-status` | Health and progress report |
+| Upgrade framework | `/upgrade-framework` | Migrate from older framework version |
 
 ## Fundamental rules
 
