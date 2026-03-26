@@ -33,3 +33,15 @@ Rate limiting: apply on all public routes. Return 429 with Retry-After header.
 2. Always TDD: tests before implementation.
 3. Update memory/progress.md at end of session.
 4. After each error: "Update CLAUDE.md so you don't make that mistake again."
+
+## End of session — mandatory
+
+Before closing Claude Code, always update memory/progress.md with:
+- What was done during this session
+- Decisions made and why
+- Current blockers if any
+- Recommended next steps
+
+The session-save hook will write an automatic snapshot regardless,
+but Claude's summary is what makes the memory useful across sessions.
+Ask Claude: "Summarize this session and update memory/progress.md."
