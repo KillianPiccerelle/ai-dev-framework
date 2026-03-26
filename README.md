@@ -36,6 +36,8 @@ claude
 > 
 > **`scripts/init-project.sh`** — run per project. Detects existing Claude configuration and runs in update mode — nothing is overwritten.
 
+See [Integrating into an existing project](#integrating-into-an-existing-project) for a detailed step-by-step guide.
+
 ---
 
 ## Core concepts
@@ -149,6 +151,73 @@ Templates are used only when starting a project from scratch. Each one provides 
 | `api-backend` | `init-project.sh api-backend` | API versioning (/v1/), breaking change policy, rate limiting on public routes |
 | `fullstack-web` | `init-project.sh fullstack-web` | Shared types in `shared/`, centralized API calls, global state scope |
 | `ai-app` | `init-project.sh ai-app` | Prompts as versioned code, centralized LLM service layer, cost tracking, streaming with fallback, evals required before ship |
+
+---
+
+## Integrating into an existing project
+
+This is the most common use case — you have a project already in progress and want Claude Code to understand it deeply before helping you work on it.
+
+### Step 1 — Install the framework globally (once)
+
+```bash
+git clone https://github.com/KillianPiccerelle/ai-dev-framework.git ~/ai-dev-framework
+cd ~/ai-dev-framework
+chmod +x scripts/install.sh
+./scripts/install.sh
+```
+
+This installs all agents and skills globally into `~/.claude/`. You only do this once — all your projects share the same installation.
+
+### Step 2 — Initialize the framework in your project
+
+```bash
+cd your-existing-project
+~/ai-dev-framework/scripts/init-project.sh
+```
+
+This is **non-destructive** — it never modifies your source code, never overwrites your existing files. What it does:
+- Creates a `memory/` folder with empty template files
+- Copies the 9 workflows into `.claude/commands/` so Claude Code can invoke them
+- If a `CLAUDE.md` already exists, it backs it up as `CLAUDE.backup.md` before generating a new one
+- Creates `.claude/settings.json` if it doesn't exist
+
+### Step 3 — Let Claude analyze your project
+
+```bash
+claude
+```
+
+Once Claude Code is open, type:
+
+```
+/analyze-project
+```
+
+Claude will read your entire codebase and automatically generate:
+- `memory/project-context.md` — what your project does, who it's for
+- `memory/stack.md` — your detected tech stack with justifications
+- `memory/architecture.md` — the architectural pattern and main components
+- `memory/conventions/` — your naming conventions, error handling style, commit format
+
+At the end, it presents a summary of everything generated so you can review and correct anything that was misdetected.
+
+### Step 4 — Review and complete the memory files
+
+Open `memory/project-context.md` and verify the generated content. Claude does its best to infer from your code, but some things — like business context, target users, or non-functional constraints — can only come from you. Fill in any placeholders.
+
+### Step 5 — Start working
+
+From this point, Claude has full context about your project. Use the workflows for every task:
+
+```
+/add-feature     → implement something new with full TDD
+/debug-issue     → investigate and fix a bug
+/map-project     → generate a full architecture map
+/project-status  → get a health report
+```
+
+Every agent will read `memory/` before acting — no more re-explaining your stack or conventions at the start of each session.
 
 ---
 

@@ -36,6 +36,8 @@ claude
 > 
 > **`scripts/init-project.sh`** — à lancer par projet. Détecte une configuration Claude existante et passe en mode mise à jour — rien n'est écrasé.
 
+Voir [Intégrer le framework dans un projet existant](#intégrer-le-framework-dans-un-projet-existant) pour un guide détaillé pas-à-pas.
+
 ---
 
 ## Concepts fondamentaux
@@ -149,6 +151,73 @@ Les templates sont utilisés uniquement pour démarrer un projet de zéro. Chacu
 | `api-backend` | `init-project.sh api-backend` | Versioning des routes (/v1/), politique de breaking changes, rate limiting sur les routes publiques |
 | `fullstack-web` | `init-project.sh fullstack-web` | Types partagés dans `shared/`, appels API centralisés, scope de l'état global |
 | `ai-app` | `init-project.sh ai-app` | Prompts comme code versionné, couche service LLM centralisée, cost tracking, streaming avec fallback, evals obligatoires avant ship |
+
+---
+
+## Intégrer le framework dans un projet existant
+
+C'est le cas d'usage le plus courant — tu as un projet déjà en cours et tu veux que Claude Code le comprenne en profondeur avant de t'aider à travailler dessus.
+
+### Étape 1 — Installer le framework globalement (une seule fois)
+
+```bash
+git clone https://github.com/KillianPiccerelle/ai-dev-framework.git ~/ai-dev-framework
+cd ~/ai-dev-framework
+chmod +x scripts/install.sh
+./scripts/install.sh
+```
+
+Installe tous les agents et skills globalement dans `~/.claude/`. À faire une seule fois — tous tes projets partagent la même installation.
+
+### Étape 2 — Initialiser le framework dans ton projet
+
+```bash
+cd ton-projet-existant
+~/ai-dev-framework/scripts/init-project.sh
+```
+
+C'est **non-destructif** — le script ne modifie jamais ton code source, n'écrase jamais tes fichiers existants. Ce qu'il fait concrètement :
+- Crée un dossier `memory/` avec des fichiers templates vides
+- Copie les 9 workflows dans `.claude/commands/` pour que Claude Code puisse les invoquer
+- Si un `CLAUDE.md` existe déjà, il est sauvegardé en `CLAUDE.backup.md` avant qu'un nouveau soit généré
+- Crée `.claude/settings.json` s'il n'existe pas
+
+### Étape 3 — Laisser Claude analyser ton projet
+
+```bash
+claude
+```
+
+Une fois Claude Code ouvert, tape :
+
+```
+/analyze-project
+```
+
+Claude lit l'ensemble de ton codebase et génère automatiquement :
+- `memory/project-context.md` — ce que fait ton projet, à qui il s'adresse
+- `memory/stack.md` — ta stack technique détectée avec justifications
+- `memory/architecture.md` — le pattern architectural et les composants principaux
+- `memory/conventions/` — tes conventions de nommage, style de gestion des erreurs, format de commits
+
+À la fin, il présente un récapitulatif de tout ce qui a été généré pour que tu puisses vérifier et corriger ce qui aurait été mal détecté.
+
+### Étape 4 — Vérifier et compléter les fichiers mémoire
+
+Ouvre `memory/project-context.md` et vérifie le contenu généré. Claude fait de son mieux pour inférer depuis ton code, mais certaines choses — comme le contexte métier, les utilisateurs cibles, ou les contraintes non-fonctionnelles — ne peuvent venir que de toi. Complète les placeholders.
+
+### Étape 5 — Commencer à travailler
+
+À partir de là, Claude a le contexte complet de ton projet. Utilise les workflows pour chaque tâche :
+
+```
+/add-feature     → implémenter quelque chose de nouveau avec TDD complet
+/debug-issue     → investiguer et corriger un bug
+/map-project     → générer une carte complète de l'architecture
+/project-status  → obtenir un rapport de santé du projet
+```
+
+Chaque agent lira `memory/` avant d'agir — plus besoin de ré-expliquer ta stack ou tes conventions à chaque session.
 
 ---
 
