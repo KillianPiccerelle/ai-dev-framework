@@ -32,7 +32,9 @@ claude
 /analyze-project
 ```
 
-> `install.sh` installs all 13 agents into `~/.claude/agents/` and all skills into `~/.claude/skills/` globally. `init-project.sh` detects existing Claude configuration and runs in update mode — nothing is overwritten.
+> **`scripts/install.sh`** — run once globally. Installs all 13 agents into `~/.claude/agents/` and all skills into `~/.claude/skills/`.
+> 
+> **`scripts/init-project.sh`** — run per project. Detects existing Claude configuration and runs in update mode — nothing is overwritten.
 
 ---
 
