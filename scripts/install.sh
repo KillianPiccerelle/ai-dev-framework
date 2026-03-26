@@ -109,15 +109,20 @@ export PATH="$HOME/.local/bin:$PATH"
 
 ok "Global command created: ai-framework"
 
+# ─── Reload shell config for current session ──────────────────────────────────
+# So the user doesn't have to manually source their shell config.
+if [ -f "$HOME/.zshrc" ]; then
+  source "$HOME/.zshrc" 2>/dev/null || true
+elif [ -f "$HOME/.bashrc" ]; then
+  source "$HOME/.bashrc" 2>/dev/null || true
+fi
+
 # ─── Summary ──────────────────────────────────────────────────────────────────
 
 echo ""
 ok "Installation complete."
 echo ""
-echo "Reload your shell or run:"
-echo "  source ~/.bashrc   (or ~/.zshrc)"
-echo ""
-echo "Then use from anywhere:"
+echo "Use from anywhere:"
 echo "  ai-framework init saas     → new project"
 echo "  ai-framework init          → existing project"
 echo "  ai-framework update        → update the framework"
