@@ -154,6 +154,45 @@ Les templates sont utilisés uniquement pour démarrer un projet de zéro. Chacu
 
 ---
 
+## Mettre le framework à jour
+
+Quand de nouveaux agents, workflows ou skills sont ajoutés au framework, tu dois mettre à jour ton installation globale. Tes fichiers de projet ne sont jamais touchés par ce processus.
+
+### Mettre à jour le framework
+
+```bash
+cd ~/ai-dev-framework
+chmod +x scripts/update.sh
+./scripts/update.sh
+```
+
+Le script :
+1. Récupère les derniers changements depuis GitHub
+2. T'affiche exactement ce qui a changé (nouveaux agents, workflows mis à jour, etc.)
+3. Rafraîchit tous les agents dans `~/.claude/agents/` et les skills dans `~/.claude/skills/`
+4. Met à jour les hooks dans `~/.claude/hooks/`
+
+> Tes fichiers de projet, le contenu de `memory/`, et tes configurations personnalisées ne sont **jamais modifiés**.
+
+### Mettre à jour les workflows d'un projet spécifique
+
+La mise à jour globale rafraîchit les agents et les skills mais ne touche pas les workflows dans `.claude/commands/` de tes projets. Pour mettre à jour un projet vers les derniers workflows :
+
+```bash
+cd ton-projet
+~/ai-dev-framework/scripts/init-project.sh
+```
+
+Puis dans Claude Code :
+
+```
+/upgrade-framework
+```
+
+Ce workflow détecte ce qui manque et installe uniquement les nouveaux workflows — tes workflows personnalisés sont préservés.
+
+---
+
 ## Intégrer le framework dans un projet existant
 
 C'est le cas d'usage le plus courant — tu as un projet déjà en cours et tu veux que Claude Code le comprenne en profondeur avant de t'aider à travailler dessus.

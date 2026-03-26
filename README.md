@@ -154,6 +154,45 @@ Templates are used only when starting a project from scratch. Each one provides 
 
 ---
 
+## Keeping the framework up to date
+
+When new agents, workflows, or skills are added to the framework, you need to update your global installation. Your project files are never touched by this process.
+
+### Update the framework
+
+```bash
+cd ~/ai-dev-framework
+chmod +x scripts/update.sh
+./scripts/update.sh
+```
+
+The script:
+1. Pulls the latest changes from GitHub
+2. Shows you exactly what changed (new agents, updated workflows, etc.)
+3. Refreshes all agents in `~/.claude/agents/` and skills in `~/.claude/skills/`
+4. Updates the hooks in `~/.claude/hooks/`
+
+> Your project files, `memory/` contents, and custom configurations are **never modified**.
+
+### Update a specific project's workflows
+
+The global update refreshes agents and skills but does not touch the workflows in your projects' `.claude/commands/`. To update a project to the latest workflows:
+
+```bash
+cd your-project
+~/ai-dev-framework/scripts/init-project.sh
+```
+
+Then in Claude Code:
+
+```
+/upgrade-framework
+```
+
+This workflow detects what's missing and installs only the new workflows — your customized ones are preserved.
+
+---
+
 ## Integrating into an existing project
 
 This is the most common use case — you have a project already in progress and want Claude Code to understand it deeply before helping you work on it.
