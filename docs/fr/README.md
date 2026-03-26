@@ -199,14 +199,7 @@ C'est le cas d'usage le plus courant — tu as un projet déjà en cours et tu v
 
 ### Étape 1 — Installer le framework globalement (une seule fois)
 
-```bash
-git clone https://github.com/KillianPiccerelle/ai-dev-framework.git ~/ai-dev-framework
-cd ~/ai-dev-framework
-chmod +x scripts/install.sh
-./scripts/install.sh
-```
-
-Installe tous les agents et skills globalement dans `~/.claude/`. À faire une seule fois — tous tes projets partagent la même installation.
+Si ce n'est pas encore fait, suis les commandes de la section [Démarrage rapide](#démarrage-rapide) pour cloner le repo et lancer `install.sh`. C'est une installation unique — tous tes projets partagent les mêmes agents et skills.
 
 ### Étape 2 — Initialiser le framework dans ton projet
 
@@ -257,22 +250,6 @@ Ouvre `memory/project-context.md` et vérifie le contenu généré. Claude fait 
 ```
 
 Chaque agent lira `memory/` avant d'agir — plus besoin de ré-expliquer ta stack ou tes conventions à chaque session.
-
----
-
-## Configurer Claude Code pour ce framework
-
-Copier les fichiers depuis `agents/` dans `~/.claude/agents/` pour les activer globalement.
-Copier les fichiers depuis `workflows/` dans `.claude/commands/` du projet.
-
-### Règles fondamentales à inclure dans ton CLAUDE.md
-
-1. Lire `memory/` entièrement avant toute action.
-2. Ne jamais contredire un ADR sans en créer un nouveau.
-3. Toujours TDD : tests avant implémentation.
-4. Valider avec l'agent `verifier` avant de clore une tâche.
-5. Mettre à jour `memory/progress.md` en fin de session.
-6. Après chaque erreur : "Mets à jour CLAUDE.md pour ne pas refaire cette erreur."
 
 ---
 

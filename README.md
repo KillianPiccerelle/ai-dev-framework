@@ -199,14 +199,7 @@ This is the most common use case — you have a project already in progress and 
 
 ### Step 1 — Install the framework globally (once)
 
-```bash
-git clone https://github.com/KillianPiccerelle/ai-dev-framework.git ~/ai-dev-framework
-cd ~/ai-dev-framework
-chmod +x scripts/install.sh
-./scripts/install.sh
-```
-
-This installs all agents and skills globally into `~/.claude/`. You only do this once — all your projects share the same installation.
+If not already done, follow the [Quick start](#quick-start) section to clone the repo and run `install.sh`. This is a one-time setup — all your projects share the same agents and skills.
 
 ### Step 2 — Initialize the framework in your project
 
