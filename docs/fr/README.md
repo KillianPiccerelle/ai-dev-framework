@@ -9,6 +9,72 @@
 
 Un framework qui transforme Claude Code en équipe de développement structurée. Au lieu d'écrire des prompts depuis zéro à chaque fois, tu invoques des agents spécialisés et des workflows prédéfinis qui couvrent chaque phase d'un projet — du cadrage initial jusqu'au déploiement.
 
+## Architecture
+
+```mermaid
+graph TB
+    subgraph MEMORY["📁 memory/ — Source unique de vérité"]
+        PC[project-context.md]
+        ST[stack.md]
+        AR[architecture.md]
+        PR[progress.md]
+        DEC[decisions/ — ADRs]
+        CON[conventions/]
+        DOM[domain/]
+    end
+
+    subgraph AGENTS["🤖 Agents — Personas IA spécialisés"]
+        direction LR
+        ORC[orchestrator]
+        ARC[architect]
+        SA[stack-advisor]
+        PA[project-analyzer]
+        CA[codebase-analyst]
+        BD[backend-dev]
+        FD[frontend-dev]
+        DBG[debug]
+        TE[test-engineer]
+        QA[qa-engineer]
+        CR[code-reviewer]
+        DW[doc-writer]
+        VER[verifier]
+    end
+
+    subgraph WORKFLOWS["⚡ Workflows — Séquences orchestrées"]
+        NP["/new-project"]
+        ANP["/analyze-project"]
+        MP["/map-project"]
+        AF["/add-feature"]
+        DI["/debug-issue"]
+        REF["/refactor"]
+        GT["/gen-tests"]
+        PS["/project-status"]
+        UF["/upgrade-framework"]
+    end
+
+    subgraph SKILLS["🛠 Skills — Savoir-faire réutilisable"]
+        SK1["/stack-advisor"]
+        SK2["/jwt-auth"]
+        SK3["/rest-crud"]
+        SK4["/schema-design"]
+        SK5["/tdd-workflow"]
+    end
+
+    subgraph HOOKS["🔧 Hooks — Automations"]
+        SS[session-save.js]
+        SD[secret-detector.js]
+        SG[safety-guard.js]
+        FC[format-check.js]
+    end
+
+    MEMORY -->|lu avant chaque action| AGENTS
+    AGENTS -->|écrivent les résultats dans| MEMORY
+    WORKFLOWS -->|orchestrent| AGENTS
+    WORKFLOWS -->|invoquent| SKILLS
+    SKILLS -->|lisent la stack depuis| MEMORY
+    HOOKS -->|snapshot auto sur Stop| MEMORY
+```
+
 ---
 
 ## Concepts fondamentaux
@@ -139,25 +205,6 @@ claude
 ```
 
 Le script détecte la configuration Claude existante et passe en mode mise à jour — rien n'est écrasé.
-
----
-
-## Structure
-
-```
-ai-dev-framework/
-├── agents/           → 13 agents IA spécialisés
-├── workflows/        → 9 workflows orchestrés
-├── skills/           → 5 skills techniques invocables
-├── memory/           → Templates de mémoire projet
-├── templates/        → SaaS · API · Fullstack · AI-app
-├── hooks/            → Hooks d'automatisation Claude Code
-├── docs/
-│   └── fr/           → Documentation française
-└── scripts/
-    ├── install.sh    → Installation globale (une seule fois)
-    └── init-project.sh → Initialisation par projet
-```
 
 ---
 

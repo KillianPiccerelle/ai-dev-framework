@@ -9,6 +9,72 @@
 
 A framework that turns Claude Code into a structured development team. Instead of writing prompts from scratch every time, you invoke specialized agents and pre-defined workflows that cover every phase of a project — from initial scoping to shipping.
 
+## Architecture
+
+```mermaid
+graph TB
+    subgraph MEMORY["📁 memory/ — Single source of truth"]
+        PC[project-context.md]
+        ST[stack.md]
+        AR[architecture.md]
+        PR[progress.md]
+        DEC[decisions/ — ADRs]
+        CON[conventions/]
+        DOM[domain/]
+    end
+
+    subgraph AGENTS["🤖 Agents — Specialized AI personas"]
+        direction LR
+        ORC[orchestrator]
+        ARC[architect]
+        SA[stack-advisor]
+        PA[project-analyzer]
+        CA[codebase-analyst]
+        BD[backend-dev]
+        FD[frontend-dev]
+        DBG[debug]
+        TE[test-engineer]
+        QA[qa-engineer]
+        CR[code-reviewer]
+        DW[doc-writer]
+        VER[verifier]
+    end
+
+    subgraph WORKFLOWS["⚡ Workflows — Orchestrated sequences"]
+        NP["/new-project"]
+        ANP["/analyze-project"]
+        MP["/map-project"]
+        AF["/add-feature"]
+        DI["/debug-issue"]
+        REF["/refactor"]
+        GT["/gen-tests"]
+        PS["/project-status"]
+        UF["/upgrade-framework"]
+    end
+
+    subgraph SKILLS["🛠 Skills — Reusable know-how"]
+        SK1["/stack-advisor"]
+        SK2["/jwt-auth"]
+        SK3["/rest-crud"]
+        SK4["/schema-design"]
+        SK5["/tdd-workflow"]
+    end
+
+    subgraph HOOKS["🔧 Hooks — Automations"]
+        SS[session-save.js]
+        SD[secret-detector.js]
+        SG[safety-guard.js]
+        FC[format-check.js]
+    end
+
+    MEMORY -->|read before acting| AGENTS
+    AGENTS -->|write results to| MEMORY
+    WORKFLOWS -->|orchestrate| AGENTS
+    WORKFLOWS -->|invoke| SKILLS
+    SKILLS -->|read stack from| MEMORY
+    HOOKS -->|auto-snapshot on Stop| MEMORY
+```
+
 ---
 
 ## Core concepts
@@ -139,26 +205,6 @@ claude
 ```
 
 The script detects existing Claude configuration and runs in update mode — nothing is overwritten.
-
----
-
-## Structure
-
-```
-ai-dev-framework/
-├── agents/           → 13 specialized AI agents
-├── workflows/        → 9 orchestrated workflows
-├── skills/           → 5 invokable technical skills
-├── memory/           → Project memory templates
-├── templates/        → SaaS · API · Fullstack · AI-app
-├── hooks/            → Claude Code automation hooks
-├── docs/
-│   ├── en/           → English documentation
-│   └── fr/           → French documentation
-└── scripts/
-    ├── install.sh    → Global one-time installation
-    └── init-project.sh → Per-project initialization
-```
 
 ---
 
