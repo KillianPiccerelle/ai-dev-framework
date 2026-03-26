@@ -14,9 +14,10 @@ debug · test-engineer · code-reviewer · doc-writer · verifier
 ## Mémoire projet — lire avant toute action
 1. memory/project-context.md
 2. memory/stack.md
-3. memory/conventions/
-4. memory/decisions/
-5. memory/progress.md
+3. memory/architecture.md
+4. memory/conventions/
+5. memory/decisions/
+6. memory/progress.md
 
 ## Contexte Fullstack — règles spécifiques
 

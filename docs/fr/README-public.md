@@ -13,21 +13,21 @@ les workflows, la mémoire projet et des templates prêts à l'emploi.
 
 ## Ce que contient ce framework
 
-**10 agents spécialisés** qui couvrent tout le cycle de développement :
-orchestrator, architect, stack-advisor, backend-dev, frontend-dev,
+**11 agents spécialisés** qui couvrent tout le cycle de développement :
+orchestrator, architect, stack-advisor, project-analyzer, backend-dev, frontend-dev,
 debug, test-engineer, code-reviewer, doc-writer, verifier.
 
 **5 skills fondamentaux** invocables par slash command :
 stack-advisor, jwt-auth, rest-crud, schema-design, tdd-workflow.
 
-**3 workflows complets** qui orchestrent les agents dans le bon ordre :
-new-project, add-feature, debug-issue.
+**6 workflows complets** qui orchestrent les agents dans le bon ordre :
+new-project, analyze-project, add-feature, debug-issue, refactor, gen-tests.
 
 **3 templates de projets** avec CLAUDE.md pré-configuré :
 SaaS, API backend, Fullstack web.
 
-**Mémoire projet persistante** structurée en 5 types :
-contexte, stack, conventions, ADRs, domaine métier.
+**Mémoire projet persistante** structurée en 6 types :
+contexte, stack, architecture, conventions, ADRs, domaine métier.
 
 **Hooks d'automatisation** pour le formatage, la détection de secrets
 et la sauvegarde de contexte.
@@ -59,23 +59,26 @@ claude
 ## Utilisation quotidienne
 
 ```
-/new-project      → Cadrer et architecurer un nouveau projet
-/add-feature      → Ajouter une fonctionnalité (TDD complet)
-/debug-issue      → Analyser et résoudre un bug
-/stack-advisor    → Recommander une stack technique
-/jwt-auth         → Implémenter l'authentification JWT
-/rest-crud        → Créer un endpoint REST complet
-/schema-design    → Concevoir un schéma de base de données
-/tdd-workflow     → Appliquer la méthodologie TDD
+/new-project        → Cadrer et architecturer un nouveau projet
+/analyze-project    → Analyser un projet existant, générer memory/
+/add-feature        → Ajouter une fonctionnalité (TDD complet)
+/debug-issue        → Analyser et résoudre un bug
+/refactor           → Refactoriser du code existant
+/gen-tests          → Générer des tests pour du code existant
+/stack-advisor      → Recommander une stack technique
+/jwt-auth           → Implémenter l'authentification JWT
+/rest-crud          → Créer un endpoint REST complet
+/schema-design      → Concevoir un schéma de base de données
+/tdd-workflow       → Appliquer la méthodologie TDD
 ```
 
 ## Structure
 
 ```
 ai-dev-framework-fr/
-├── agents/          → 10 agents IA spécialisés
+├── agents/          → 11 agents IA spécialisés
 ├── skills/          → 5 skills invocables
-├── workflows/       → 3 workflows orchestrés
+├── workflows/       → 6 workflows orchestrés
 ├── memory/          → Templates de mémoire projet
 ├── templates/       → Squelettes de projets (SaaS, API, Fullstack)
 ├── hooks/           → Automations Claude Code

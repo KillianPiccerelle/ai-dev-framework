@@ -40,8 +40,11 @@ Copier les fichiers de `workflows/` dans `.claude/commands/` du projet.
 | Workflow | Commande | Usage |
 |----------|----------|-------|
 | Nouveau projet | `/new-project` | Démarre un projet de zéro |
+| Analyser un projet | `/analyze-project` | Analyse un projet existant, génère memory/ |
 | Ajouter une feature | `/add-feature` | Ajoute une fonctionnalité |
 | Déboguer | `/debug-issue` | Analyse et résout un bug |
+| Refactoriser | `/refactor` | Refactorise du code existant |
+| Générer des tests | `/gen-tests` | Génère des tests pour du code existant |
 
 ## Règles fondamentales
 

@@ -13,21 +13,21 @@ and ready-to-use templates.
 
 ## What's inside
 
-**10 specialized agents** covering the full development cycle:
-orchestrator, architect, stack-advisor, backend-dev, frontend-dev,
-debug, test-engineer, code-reviewer, doc-writer, verifier.
+**11 specialized agents** covering the full development cycle:
+orchestrator, architect, stack-advisor, project-analyzer, backend-dev,
+frontend-dev, debug, test-engineer, code-reviewer, doc-writer, verifier.
 
 **5 core skills** invokable via slash command:
 stack-advisor, jwt-auth, rest-crud, schema-design, tdd-workflow.
 
 **3 complete workflows** that orchestrate agents in the right order:
-new-project, add-feature, debug-issue.
+new-project, analyze-project, add-feature, debug-issue, refactor, gen-tests.
 
 **3 project templates** with pre-configured CLAUDE.md:
 SaaS, API backend, Fullstack web.
 
-**Persistent project memory** structured in 5 types:
-context, stack, conventions, ADRs, business domain.
+**Persistent project memory** structured in 6 types:
+context, stack, architecture, conventions, ADRs, business domain.
 
 **Automation hooks** for formatting, secret detection,
 and context saving.
@@ -59,23 +59,26 @@ claude
 ## Daily usage
 
 ```
-/new-project      → Scope and architect a new project
-/add-feature      → Add a feature (full TDD)
-/debug-issue      → Analyze and resolve a bug
-/stack-advisor    → Recommend a technical stack
-/jwt-auth         → Implement JWT authentication
-/rest-crud        → Create a complete REST endpoint
-/schema-design    → Design a database schema
-/tdd-workflow     → Apply TDD methodology
+/new-project        → Scope and architect a new project
+/analyze-project    → Analyze an existing project, generate memory/
+/add-feature        → Add a feature (full TDD)
+/debug-issue        → Analyze and resolve a bug
+/refactor           → Refactor existing code
+/gen-tests          → Generate tests for existing code
+/stack-advisor      → Recommend a technical stack
+/jwt-auth           → Implement JWT authentication
+/rest-crud          → Create a complete REST endpoint
+/schema-design      → Design a database schema
+/tdd-workflow       → Apply TDD methodology
 ```
 
 ## Structure
 
 ```
 ai-dev-framework-en/
-├── agents/          → 10 specialized AI agents
+├── agents/          → 11 specialized AI agents
 ├── skills/          → 5 invokable skills
-├── workflows/       → 3 orchestrated workflows
+├── workflows/       → 6 orchestrated workflows
 ├── memory/          → Project memory templates
 ├── templates/       → Project skeletons (SaaS, API, Fullstack)
 ├── hooks/           → Claude Code automations
