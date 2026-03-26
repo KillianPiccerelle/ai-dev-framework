@@ -50,17 +50,6 @@ claude
 /analyze-project
 ```
 
-## Migrate from v1/v2
-
-```bash
-cd my-project
-~/ai-dev-framework/scripts/init-project.sh
-claude
-/upgrade-framework
-```
-
----
-
 ## Available commands
 
 ```
@@ -101,7 +90,6 @@ ai-dev-framework/
 
 - [English docs](docs/en/)
 - [Documentation française](docs/fr/)
-- [Migration v2 → v3](docs/en/migration-v2-v3.md)
 - [Adding an agent](docs/en/adding-agent.md)
 
 ## Contributing
