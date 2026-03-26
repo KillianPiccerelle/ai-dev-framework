@@ -19,7 +19,7 @@ git clone https://github.com/KillianPiccerelle/ai-dev-framework.git ~/ai-dev-fra
 cd ~/ai-dev-framework && chmod +x scripts/install.sh && ./scripts/install.sh
 
 cd mon-projet
-~/ai-dev-framework/scripts/init-project.sh saas
+ai-framework init saas
 claude
 /new-project
 ```
@@ -27,14 +27,14 @@ claude
 **Projet existant :**
 ```bash
 cd mon-projet-existant
-~/ai-dev-framework/scripts/init-project.sh
+ai-framework init
 claude
 /analyze-project
 ```
 
 > **`scripts/install.sh`** — à lancer une seule fois globalement. Installe les 13 agents dans `~/.claude/agents/` et tous les skills dans `~/.claude/skills/`.
 > 
-> **`scripts/init-project.sh`** — à lancer par projet. Détecte une configuration Claude existante et passe en mode mise à jour — rien n'est écrasé.
+> **`ai-framework init`** — à lancer par projet. Détecte une configuration Claude existante et passe en mode mise à jour — rien n'est écrasé.
 
 Voir [Intégrer le framework dans un projet existant](#intégrer-le-framework-dans-un-projet-existant) pour un guide détaillé pas-à-pas.
 
@@ -161,9 +161,7 @@ Quand de nouveaux agents, workflows ou skills sont ajoutés au framework, tu doi
 ### Mettre à jour le framework
 
 ```bash
-cd ~/ai-dev-framework
-chmod +x scripts/update.sh
-./scripts/update.sh
+ai-framework update
 ```
 
 Le script :
@@ -180,7 +178,7 @@ La mise à jour globale rafraîchit les agents et les skills mais ne touche pas 
 
 ```bash
 cd ton-projet
-~/ai-dev-framework/scripts/init-project.sh
+ai-framework init
 ```
 
 Puis dans Claude Code :
@@ -205,7 +203,7 @@ Si ce n'est pas encore fait, suis les commandes de la section [Démarrage rapide
 
 ```bash
 cd ton-projet-existant
-~/ai-dev-framework/scripts/init-project.sh
+ai-framework init
 ```
 
 C'est **non-destructif** — le script ne modifie jamais ton code source, n'écrase jamais tes fichiers existants. Ce qu'il fait concrètement :

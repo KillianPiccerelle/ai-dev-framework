@@ -19,7 +19,7 @@ git clone https://github.com/KillianPiccerelle/ai-dev-framework.git ~/ai-dev-fra
 cd ~/ai-dev-framework && chmod +x scripts/install.sh && ./scripts/install.sh
 
 cd my-project
-~/ai-dev-framework/scripts/init-project.sh saas
+ai-framework init saas
 claude
 /new-project
 ```
@@ -27,14 +27,14 @@ claude
 **Existing project:**
 ```bash
 cd my-existing-project
-~/ai-dev-framework/scripts/init-project.sh
+ai-framework init
 claude
 /analyze-project
 ```
 
 > **`scripts/install.sh`** — run once globally. Installs all 13 agents into `~/.claude/agents/` and all skills into `~/.claude/skills/`.
 > 
-> **`scripts/init-project.sh`** — run per project. Detects existing Claude configuration and runs in update mode — nothing is overwritten.
+> **`ai-framework init`** — run per project. Detects existing Claude configuration and runs in update mode — nothing is overwritten.
 
 See [Integrating into an existing project](#integrating-into-an-existing-project) for a detailed step-by-step guide.
 
@@ -161,9 +161,7 @@ When new agents, workflows, or skills are added to the framework, you need to up
 ### Update the framework
 
 ```bash
-cd ~/ai-dev-framework
-chmod +x scripts/update.sh
-./scripts/update.sh
+ai-framework update
 ```
 
 The script:
@@ -180,7 +178,7 @@ The global update refreshes agents and skills but does not touch the workflows i
 
 ```bash
 cd your-project
-~/ai-dev-framework/scripts/init-project.sh
+ai-framework init
 ```
 
 Then in Claude Code:
@@ -205,7 +203,7 @@ If not already done, follow the [Quick start](#quick-start) section to clone the
 
 ```bash
 cd your-existing-project
-~/ai-dev-framework/scripts/init-project.sh
+ai-framework init
 ```
 
 This is **non-destructive** — it never modifies your source code, never overwrites your existing files. What it does:
