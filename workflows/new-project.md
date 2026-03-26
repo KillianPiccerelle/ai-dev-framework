@@ -40,3 +40,19 @@ Initialize git with first commit.
 
 ## Step 6 — Summary
 Present: what was created, generated memory files, command to start: /add-feature
+
+The generated CLAUDE.md MUST always include this end-of-session section:
+
+---
+## End of session — mandatory
+
+Before closing Claude Code, always update memory/progress.md with:
+- What was done during this session
+- Decisions made and why
+- Current blockers if any
+- Recommended next steps
+
+The session-save hook writes an automatic snapshot regardless,
+but Claude's summary is what makes memory useful across sessions.
+Ask Claude: "Summarize this session and update memory/progress.md."
+---

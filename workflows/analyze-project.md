@@ -31,6 +31,22 @@ domain/glossary.md (if applicable)
 ## Step 4 — Generate new CLAUDE.md
 Adapted to the analyzed project. References memory/ files. Includes migrated rules.
 
+The generated CLAUDE.md MUST always include this end-of-session section:
+
+---
+## End of session — mandatory
+
+Before closing Claude Code, always update memory/progress.md with:
+- What was done during this session
+- Decisions made and why
+- Current blockers if any
+- Recommended next steps
+
+The session-save hook writes an automatic snapshot regardless,
+but Claude's summary is what makes memory useful across sessions.
+Ask Claude: "Summarize this session and update memory/progress.md."
+---
+
 ## Step 5 — Install workflows
 Copy workflows to .claude/commands/. Do not overwrite custom workflows.
 Offer framework version as workflow-name.framework.md for comparison.
