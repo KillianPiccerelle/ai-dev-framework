@@ -221,6 +221,9 @@ Once Claude Code is open, type:
 /analyze-project
 ```
 
+> **`/analyze-project`** is for projects that don't have a `memory/` folder yet.
+> If your project already has a `memory/` folder from a previous framework install, use `/upgrade-framework` instead — it merges your existing memory with the latest structure rather than generating from scratch.
+
 Claude will read your entire codebase and automatically generate:
 - `memory/project-context.md` — what your project does, who it's for
 - `memory/stack.md` — your detected tech stack with justifications
