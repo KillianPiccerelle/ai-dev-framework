@@ -1,15 +1,38 @@
 #!/usr/bin/env node
-// Avertit avant les commandes destructives
+// Warns before destructive commands.
+// Warns only — never blocks. The developer retains full control.
+
 const cmd = process.argv[2] || '';
+
 const dangerous = [
-  { pattern: /rm\s+-rf/, label: 'Suppression récursive forcée' },
-  { pattern: /DROP\s+TABLE/i, label: 'Suppression de table SQL' },
-  { pattern: /DROP\s+DATABASE/i, label: 'Suppression de base de données' },
-  { pattern: /git push --force/, label: 'Push force Git' },
+  // Recursive force delete — all variants
+  { pattern: /rm\s+(-[a-zA-Z]*r[a-zA-Z]*f|-[a-zA-Z]*f[a-zA-Z]*r|--recursive.*--force|--force.*--recursive)/, label: 'Recursive force delete (rm -rf)' },
+  { pattern: /rm\s+-rf\b/, label: 'Recursive force delete (rm -rf)' },
+  { pattern: /rm\s+-fr\b/, label: 'Recursive force delete (rm -fr)' },
+
+  // SQL destructive operations
+  { pattern: /DROP\s+TABLE/i, label: 'SQL DROP TABLE' },
+  { pattern: /DROP\s+DATABASE/i, label: 'SQL DROP DATABASE' },
+  { pattern: /DROP\s+SCHEMA/i, label: 'SQL DROP SCHEMA' },
+  { pattern: /TRUNCATE\s+TABLE/i, label: 'SQL TRUNCATE TABLE' },
+  { pattern: /DELETE\s+FROM\s+\w+\s*;/i, label: 'SQL DELETE without WHERE clause' },
+
+  // Git force push — all variants
+  { pattern: /git\s+push\s+.*--force(?!-with-lease)/, label: 'Git force push (--force)' },
+  { pattern: /git\s+push\s+.*-f\b/, label: 'Git force push (-f)' },
+
+  // Dangerous system operations
+  { pattern: /chmod\s+-R\s+777/, label: 'Recursive chmod 777 (dangerous permissions)' },
+  { pattern: />\s*\/dev\/sd[a-z]/, label: 'Write to block device' },
+  { pattern: /mkfs\./, label: 'Filesystem format (mkfs)' },
 ];
-const found = dangerous.find(d => d.pattern.test(cmd));
-if (found) {
-  console.error(`[safety-guard] ATTENTION : ${found.label} détectée.`);
-  console.error(`[safety-guard] Commande : ${cmd}`);
-  console.error(`[safety-guard] Confirme que c'est intentionnel avant de continuer.`);
+
+const found = dangerous.filter(d => d.pattern.test(cmd));
+
+if (found.length > 0) {
+  found.forEach(f => {
+    console.error(`[safety-guard] WARNING: ${f.label} detected.`);
+  });
+  console.error(`[safety-guard] Command: ${cmd}`);
+  console.error('[safety-guard] Confirm this is intentional before proceeding.');
 }

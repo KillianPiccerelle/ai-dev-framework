@@ -112,7 +112,7 @@ warn "Note: workflows in your projects' .claude/commands/ are NOT updated automa
 warn "To update a specific project, run from its root:"
 echo ""
 echo "  cd your-project"
-echo "  ~/ai-dev-framework/scripts/init-project.sh"
+echo "  ai-framework init"
 echo "  # Then in Claude Code: /upgrade-framework"
 echo ""
 

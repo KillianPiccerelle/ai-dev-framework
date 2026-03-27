@@ -109,13 +109,8 @@ export PATH="$HOME/.local/bin:$PATH"
 
 ok "Global command created: ai-framework"
 
-# ─── Reload shell config for current session ──────────────────────────────────
-# So the user doesn't have to manually source their shell config.
-if [ -f "$HOME/.zshrc" ]; then
-  source "$HOME/.zshrc" 2>/dev/null || true
-elif [ -f "$HOME/.bashrc" ]; then
-  source "$HOME/.bashrc" 2>/dev/null || true
-fi
+# PATH is already exported above for the current session.
+# The shell config will load it automatically on next terminal open.
 
 # ─── Summary ──────────────────────────────────────────────────────────────────
 

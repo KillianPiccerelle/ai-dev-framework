@@ -5,7 +5,7 @@ set -e
 # Usage: ./scripts/init-project.sh [template]
 # template: saas | api-backend | fullstack-web | ai-app (default: saas)
 
-TEMPLATE=${1:-"saas"}
+TEMPLATE=${1:-""}
 FRAMEWORK_DIR="$(cd "$(dirname "$0")/.." && pwd)"
 TARGET_DIR="${PWD}"
 
@@ -14,7 +14,8 @@ log()  { echo -e "${BLUE}[ai-dev-framework v3]${NC} $1"; }
 ok()   { echo -e "${GREEN}[ok]${NC} $1"; }
 warn() { echo -e "${YELLOW}[warn]${NC} $1"; }
 
-log "Init project — template: $TEMPLATE | target: $TARGET_DIR"
+TEMPLATE_LABEL="${TEMPLATE:-none}"
+log "Init project — template: $TEMPLATE_LABEL | target: $TARGET_DIR"
 
 # ─── Detect existing project ──────────────────────────────────────────────────
 HAS_CLAUDE_MD=false
@@ -75,10 +76,37 @@ done
 
 # ─── CLAUDE.md ────────────────────────────────────────────────────────────────
 if ! $HAS_CLAUDE_MD; then
-  TEMPLATE_CLAUDE="$FRAMEWORK_DIR/templates/$TEMPLATE/CLAUDE.md"
-  if [ -f "$TEMPLATE_CLAUDE" ]; then
-    cp "$TEMPLATE_CLAUDE" "$TARGET_DIR/CLAUDE.md"
+  if [ -n "$TEMPLATE" ] && [ -f "$FRAMEWORK_DIR/templates/$TEMPLATE/CLAUDE.md" ]; then
+    cp "$FRAMEWORK_DIR/templates/$TEMPLATE/CLAUDE.md" "$TARGET_DIR/CLAUDE.md"
     ok "CLAUDE.md ($TEMPLATE template) applied"
+  else
+    # No template specified or template not found — generate minimal CLAUDE.md
+    cat > "$TARGET_DIR/CLAUDE.md" << 'CLAUDEMD'
+# Claude Code — Project configuration
+
+## Framework: ai-dev-framework v3
+
+## Memory — read before any action
+1. memory/project-context.md
+2. memory/stack.md
+3. memory/architecture.md
+4. memory/conventions/
+5. memory/decisions/
+6. memory/progress.md
+
+## Fundamental rules
+1. Read memory/ entirely before any action.
+2. Never contradict an ADR without creating a new one.
+3. Always TDD: tests before implementation.
+4. Validate with verifier before closing a task.
+5. Update memory/progress.md at end of session.
+6. After each error: "Update CLAUDE.md so you don't make that mistake again."
+
+## End of session — mandatory
+Before closing Claude Code, update memory/progress.md with what was done,
+decisions made, blockers, and next steps.
+CLAUDEMD
+    ok "CLAUDE.md (minimal) created"
   fi
 fi
 
