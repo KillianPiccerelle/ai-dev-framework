@@ -11,30 +11,59 @@ A framework that turns Claude Code into a structured development team. Instead o
 
 ---
 
+## Table of contents
+
+- [Quick start](#quick-start)
+- [Core concepts](#core-concepts)
+- [Agents](#agents)
+- [Workflows](#workflows)
+- [Skills](#skills)
+- [Memory system](#memory-system)
+- [Templates](#templates)
+- [Integrating into an existing project](#integrating-into-an-existing-project)
+- [Keeping the framework up to date](#keeping-the-framework-up-to-date)
+- [Contributing](#contributing)
+
+---
+
 ## Quick start
 
-**New project:**
+### Install the framework (once)
+
 ```bash
 git clone https://github.com/KillianPiccerelle/ai-dev-framework.git ~/ai-dev-framework
 cd ~/ai-dev-framework && chmod +x scripts/install.sh && ./scripts/install.sh
+```
 
+> **`scripts/install.sh`** installs all 13 agents into `~/.claude/agents/`, all skills into `~/.claude/skills/`, and creates the global `ai-framework` command. Run once — all your projects share the same installation.
+
+### New project from scratch
+
+```bash
 cd my-project
-ai-framework init saas
+ai-framework init [template]
 claude
 /new-project
 ```
 
-**Existing project:**
+The `[template]` argument is **optional**. It pre-configures your `CLAUDE.md` with rules specific to your project type. If you skip it, a minimal `CLAUDE.md` is generated and `/new-project` will ask you the right questions to fill in `memory/`.
+
+| Template | Use when... |
+|----------|-------------|
+| `saas` | Building a multi-tenant SaaS with organizations and billing |
+| `api-backend` | Building a pure REST/GraphQL API |
+| `fullstack-web` | Building a fullstack web application (frontend + backend) |
+| `ai-app` | Building an application with LLM features |
+| *(none)* | Your project doesn't fit any category, or you prefer to start minimal |
+
+### Existing project
+
 ```bash
 cd my-existing-project
 ai-framework init
 claude
 /analyze-project
 ```
-
-> **`scripts/install.sh`** — run once globally. Installs all 13 agents into `~/.claude/agents/` and all skills into `~/.claude/skills/`.
-> 
-> **`ai-framework init`** — run per project. Detects existing Claude configuration and runs in update mode — nothing is overwritten.
 
 See [Integrating into an existing project](#integrating-into-an-existing-project) for a detailed step-by-step guide.
 
@@ -143,51 +172,17 @@ memory/
 
 ## Templates
 
-Templates are used only when starting a project from scratch. Each one provides a preconfigured `CLAUDE.md` with project-type-specific rules already in place. For existing projects, use `/analyze-project` instead — it generates a tailored `CLAUDE.md` from the actual codebase.
+Templates are used **only when starting a project from scratch**. Each one provides a preconfigured `CLAUDE.md` with project-type-specific rules already in place.
+
+If your project is already in progress, skip this section and go to [Integrating into an existing project](#integrating-into-an-existing-project) — the `/analyze-project` workflow generates a tailored `CLAUDE.md` from your actual codebase instead.
 
 | Template | Command | Specific rules included |
 |----------|---------|------------------------|
-| `saas` | `init-project.sh saas` | Multi-tenancy (tenant_id on every query), billing (no card data, webhook-based sync), organization membership with roles |
-| `api-backend` | `init-project.sh api-backend` | API versioning (/v1/), breaking change policy, rate limiting on public routes |
-| `fullstack-web` | `init-project.sh fullstack-web` | Shared types in `shared/`, centralized API calls, global state scope |
-| `ai-app` | `init-project.sh ai-app` | Prompts as versioned code, centralized LLM service layer, cost tracking, streaming with fallback, evals required before ship |
-
----
-
-## Keeping the framework up to date
-
-When new agents, workflows, or skills are added to the framework, you need to update your global installation. Your project files are never touched by this process.
-
-### Update the framework
-
-```bash
-ai-framework update
-```
-
-The script:
-1. Pulls the latest changes from GitHub
-2. Shows you exactly what changed (new agents, updated workflows, etc.)
-3. Refreshes all agents in `~/.claude/agents/` and skills in `~/.claude/skills/`
-4. Updates the hooks in `~/.claude/hooks/`
-
-> Your project files, `memory/` contents, and custom configurations are **never modified**.
-
-### Update a specific project's workflows
-
-The global update refreshes agents and skills but does not touch the workflows in your projects' `.claude/commands/`. To update a project to the latest workflows:
-
-```bash
-cd your-project
-ai-framework init
-```
-
-Then in Claude Code:
-
-```
-/upgrade-framework
-```
-
-This workflow detects what's missing and installs only the new workflows — your customized ones are preserved.
+| `saas` | `ai-framework init saas` | Multi-tenancy (tenant_id on every query), billing (no card data, webhook-based sync), organization membership with roles |
+| `api-backend` | `ai-framework init api-backend` | API versioning (/v1/), breaking change policy, rate limiting on public routes |
+| `fullstack-web` | `ai-framework init fullstack-web` | Shared types in `shared/`, centralized API calls, global state scope |
+| `ai-app` | `ai-framework init ai-app` | Prompts as versioned code, centralized LLM service layer, cost tracking, streaming with fallback, evals required before ship |
+| *(none)* | `ai-framework init` | Minimal setup — memory templates and workflows only, no preset rules |
 
 ---
 
@@ -211,6 +206,8 @@ This is **non-destructive** — it never modifies your source code, never overwr
 - Copies the 9 workflows into `.claude/commands/` so Claude Code can invoke them
 - If a `CLAUDE.md` already exists, it backs it up as `CLAUDE.backup.md` before generating a new one
 - Creates `.claude/settings.json` if it doesn't exist
+
+> No template argument here — for existing projects, the template is irrelevant. The `/analyze-project` workflow will generate a `CLAUDE.md` tailored to your actual codebase in the next step.
 
 ### Step 3 — Let Claude analyze your project
 
@@ -248,6 +245,39 @@ From this point, Claude has full context about your project. Use the workflows f
 ```
 
 Every agent will read `memory/` before acting — no more re-explaining your stack or conventions at the start of each session.
+
+---
+
+## Keeping the framework up to date
+
+When new agents, workflows, or skills are added to the framework, update your global installation. Your project files are never touched.
+
+### Update the framework
+
+```bash
+ai-framework update
+```
+
+The script pulls the latest changes from GitHub, shows you what changed, and refreshes all agents, skills, and hooks globally.
+
+> Your project files, `memory/` contents, and custom configurations are **never modified**.
+
+### Update a specific project's workflows
+
+The global update refreshes agents and skills but does not touch the workflows in your projects' `.claude/commands/`. To get the latest workflows in a project:
+
+```bash
+cd your-project
+ai-framework init
+```
+
+Then in Claude Code:
+
+```
+/upgrade-framework
+```
+
+This installs only missing workflows — your customized ones are preserved.
 
 ---
 
