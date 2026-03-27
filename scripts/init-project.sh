@@ -3,7 +3,7 @@ set -e
 
 # ai-dev-framework v3 — Project initialization
 # Usage: ./scripts/init-project.sh [template]
-# template: saas | api-backend | fullstack-web | ai-app (default: saas)
+# template: saas | api-backend | fullstack-web | ai-app (optional)
 
 TEMPLATE=${1:-""}
 FRAMEWORK_DIR="$(cd "$(dirname "$0")/.." && pwd)"
@@ -185,7 +185,7 @@ fi
 
 # ─── Summary ─────────────────────────────────────────────────────────────────
 echo ""
-ok "Project initialized — template: $TEMPLATE"
+ok "Project initialized — template: ${TEMPLATE:-none}"
 echo ""
 if $HAS_CLAUDE_MD || $HAS_MEMORY || $HAS_CLAUDE_DIR; then
   echo "Existing project detected. Recommended:"
