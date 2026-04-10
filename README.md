@@ -86,7 +86,7 @@ graph LR
     MEM["📁 memory/\nSource of truth"]
     AGT["🤖 Agents\n15 specialized personas"]
     WFL["⚡ Workflows\n12 orchestrated sequences"]
-    SKL["🛠 Skills\n5 reusable procedures"]
+    SKL["🛠 Skills\n8 reusable procedures"]
     HKS["🔧 Hooks\nAutomations"]
 
     MEM -->|read before acting| AGT
@@ -153,6 +153,9 @@ Skills encode reusable technical know-how invokable via slash command. Each skil
 | REST CRUD | `/rest-crud` | Complete CRUD endpoint with cursor-based pagination, uniform error format, input validation, permission checks |
 | Database schema | `/schema-design` | Normalized schema design (3NF), UUID primary keys, soft delete, ASCII relationship diagram |
 | TDD workflow | `/tdd-workflow` | RED → GREEN → REFACTOR cycle with coverage targets and end-of-cycle verification checklist |
+| Docker setup | `/docker-setup` | Generates Dockerfile (multi-stage, non-root, health check) + docker-compose.yml + .dockerignore adapted to the project stack |
+| Env setup | `/env-setup` | Scans all source files for environment variable references and generates a complete, commented `.env.example` grouped by concern |
+| API docs | `/api-docs` | Generates OpenAPI 3.0 documentation from existing routes, adapted to the detected HTTP framework (Fastify, Express, FastAPI, NestJS) |
 
 ---
 
