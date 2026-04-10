@@ -11,7 +11,7 @@ Read memory/project-context.md before starting.
 Ask if not in context: application type, performance constraints,
 team skills, monthly infra budget, v1 target date.
 
-Apply decision matrix from stack-advisor agent.
+Invoke the stack-advisor agent to analyze the context and produce the recommendation.
 Produce memory/stack.md with this format:
 
 # Technical Stack — [Project Name]
