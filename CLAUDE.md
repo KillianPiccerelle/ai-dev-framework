@@ -20,7 +20,7 @@ code-reviewer · doc-writer · verifier · security-reviewer · devops-engineer
 
 ## Working on this repo
 All agents, workflows, and skills are in English — single source of truth.
-Docs are bilingual: docs/fr/ and docs/en/.
+Docs: docs/fr/README.md
 
 ## Contributing
-See docs/en/contributing.md or docs/fr/contributing.md.
+See docs/fr/README.md for the French documentation.
