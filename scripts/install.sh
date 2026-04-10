@@ -16,7 +16,8 @@ mkdir -p ~/.claude/agents ~/.claude/skills ~/.claude/hooks
 
 # Agents
 cp "$FRAMEWORK_DIR/agents/"*.md ~/.claude/agents/
-ok "13 agents installed in ~/.claude/agents/"
+AGENT_COUNT=$(ls "$FRAMEWORK_DIR/agents/"*.md | wc -l | tr -d ' ')
+ok "$AGENT_COUNT agents installed in ~/.claude/agents/"
 
 # Skills
 cp -r "$FRAMEWORK_DIR/skills/." ~/.claude/skills/
