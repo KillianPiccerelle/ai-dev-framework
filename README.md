@@ -85,7 +85,7 @@ The framework is built around four primitives that work together.
 graph LR
     MEM["📁 memory/\nSource of truth"]
     AGT["🤖 Agents\n15 specialized personas"]
-    WFL["⚡ Workflows\n9 orchestrated sequences"]
+    WFL["⚡ Workflows\n12 orchestrated sequences"]
     SKL["🛠 Skills\n5 reusable procedures"]
     HKS["🔧 Hooks\nAutomations"]
 
@@ -136,6 +136,9 @@ Workflows are invoked as slash commands from `.claude/commands/`. Each one defin
 | Generate tests | `/gen-tests` | Coverage audit first, then targeted generation on uncovered areas. Respects current behavior. Never modifies source code to make tests pass. |
 | Project status | `/project-status` | Health and progress report — test coverage, TODO count, ADR count, last session summary, recommended next action. Read-only. |
 | Upgrade framework | `/upgrade-framework` | Non-destructive migration from an older version. Detects existing config, backs it up, installs missing agents and workflows, merges memory. |
+| Security audit | `/security-audit` | Full security audit: codebase mapping → security-reviewer → QA cross-check. Produces `docs/security-report.md` with findings classified critical/high/medium/low. |
+| Setup CI | `/setup-ci` | Reads `memory/stack.md` and generates GitHub Actions CI pipeline, Dockerfile, `.env.example`, and optional deployment config (Railway, Fly.io, Vercel). |
+| Onboard | `/onboard` | Reads all `memory/` files and generates `docs/onboarding.md` — a complete getting-started guide for a new developer joining the project. |
 
 ---
 

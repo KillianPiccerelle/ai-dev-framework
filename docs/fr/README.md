@@ -86,7 +86,7 @@ Le framework est construit autour de quatre primitives qui fonctionnent ensemble
 graph LR
     MEM["📁 memory/\nSource de vérité"]
     AGT["🤖 Agents\n15 personas spécialisés"]
-    WFL["⚡ Workflows\n9 séquences orchestrées"]
+    WFL["⚡ Workflows\n12 séquences orchestrées"]
     SKL["🛠 Skills\n5 procédures réutilisables"]
     HKS["🔧 Hooks\nAutomations"]
 
@@ -137,6 +137,9 @@ Les workflows sont invoqués comme slash commands depuis `.claude/commands/`. Ch
 | Générer des tests | `/gen-tests` | Audit de couverture d'abord, puis génération ciblée sur les zones non couvertes. Respecte le comportement actuel. Ne modifie jamais le code source pour faire passer les tests. |
 | Statut du projet | `/project-status` | Rapport de santé et de progression — couverture de tests, nombre de TODO, nombre d'ADRs, résumé de la dernière session, prochaine action recommandée. Lecture seule. |
 | Mettre à jour | `/upgrade-framework` | Migration non-destructive depuis une ancienne version. Détecte la config existante, la sauvegarde, installe les agents et workflows manquants, fusionne la mémoire. |
+| Audit de sécurité | `/security-audit` | Audit complet : cartographie des surfaces d'attaque → security-reviewer → cross-check QA. Produit `docs/security-report.md` avec les findings classés critical/high/medium/low. |
+| Configurer la CI | `/setup-ci` | Lit `memory/stack.md` et génère un pipeline CI GitHub Actions, un Dockerfile, `.env.example`, et la config de déploiement optionnelle (Railway, Fly.io, Vercel). |
+| Onboarding | `/onboard` | Lit tous les fichiers `memory/` et génère `docs/onboarding.md` — un guide complet de prise en main pour un nouveau développeur qui rejoint le projet. |
 
 ---
 
