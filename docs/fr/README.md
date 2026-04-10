@@ -36,7 +36,7 @@ git clone https://github.com/KillianPiccerelle/ai-dev-framework.git ~/ai-dev-fra
 cd ~/ai-dev-framework && chmod +x scripts/install.sh && ./scripts/install.sh
 ```
 
-> **`scripts/install.sh`** installe les 13 agents dans `~/.claude/agents/`, tous les skills dans `~/.claude/skills/`, et crée la commande globale `ai-framework`. À faire une seule fois — tous tes projets partagent la même installation.
+> **`scripts/install.sh`** installe les 15 agents dans `~/.claude/agents/`, tous les skills dans `~/.claude/skills/`, et crée la commande globale `ai-framework`. À faire une seule fois — tous tes projets partagent la même installation.
 
 ### Nouveau projet de zéro
 
@@ -85,7 +85,7 @@ Le framework est construit autour de quatre primitives qui fonctionnent ensemble
 ```mermaid
 graph LR
     MEM["📁 memory/\nSource de vérité"]
-    AGT["🤖 Agents\n13 personas spécialisés"]
+    AGT["🤖 Agents\n15 personas spécialisés"]
     WFL["⚡ Workflows\n9 séquences orchestrées"]
     SKL["🛠 Skills\n5 procédures réutilisables"]
     HKS["🔧 Hooks\nAutomations"]
@@ -117,6 +117,8 @@ graph LR
 | `code-reviewer` | Audit de code en lecture seule — liste les problèmes BLOQUANT / IMPORTANT / SUGGESTION, ne modifie jamais de fichiers | sonnet | lecture seule |
 | `doc-writer` | Crée et met à jour README, docs API, guides. Documente ce qui existe, jamais ce qui est prévu | sonnet | actif |
 | `verifier` | Checklist de validation rapide — tests passent, couverture ok, pas de TODO, docs à jour | haiku | lecture seule |
+| `security-reviewer` | Audit de sécurité en lecture seule — injections, auth bypass, IDOR, secrets exposés, surfaces d'attaque. Produit `docs/security-report.md` avec les findings classés par criticité | opus | lecture seule |
+| `devops-engineer` | Génère Dockerfiles (multi-stage, non-root), pipelines CI GitHub Actions et `.env.example`. Lit `memory/stack.md` pour s'adapter à la stack détectée | sonnet | actif |
 
 ---
 
