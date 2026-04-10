@@ -1,6 +1,8 @@
 ---
 name: gen-tests
-description: Coverage audit first, then targeted test generation for uncovered areas.
+description: >
+  Coverage audit first, then targeted test generation for uncovered areas.
+  Ends with memory update reflecting new coverage state.
 ---
 
 # Workflow: generate tests
@@ -26,8 +28,16 @@ One behavior per test. Descriptive names. Use existing test framework only.
 ## Step 5 — Verify generated tests pass
 All generated tests must pass. If a test fails:
 - Badly written → fix the test
-- Reveals a bug → report to user, do not modify source code
+- Reveals a bug → report to user, do not modify source code, create issue instead
 
-## Step 6 — Final report (agent: verifier)
-Tests added, coverage before/after, still uncovered areas, potential bugs found.
-Update memory/progress.md.
+## Step 6 — Memory update (mandatory)
+
+**Update `memory/progress.md`:**
+- Add a "Last session" entry: date, tests added, coverage before → after
+- Update "Technical debt" — mark test coverage items as resolved if coverage
+  target was reached, or update the remaining gap
+- Add any bugs discovered during test generation to "Known issues"
+
+**Update `memory/stack.md` if needed:**
+- If a test framework was added (Jest, pytest, etc.) that wasn't in the stack,
+  add it to the Tests row in the summary table with its version

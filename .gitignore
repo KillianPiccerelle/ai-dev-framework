@@ -6,6 +6,7 @@ memory/architecture.md
 memory/progress.md
 memory/domain/
 *.local.md
+FRAMEWORK_CONTEXT.md
 
 # Environment
 .env
