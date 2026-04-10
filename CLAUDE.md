@@ -4,10 +4,10 @@
 Public framework for AI-assisted development with Claude Code.
 Single repository, English core, bilingual docs (fr/en).
 
-## Agents (13)
+## Agents (15)
 orchestrator · architect · stack-advisor · project-analyzer · codebase-analyst
 backend-dev · frontend-dev · debug · test-engineer · qa-engineer
-code-reviewer · doc-writer · verifier
+code-reviewer · doc-writer · verifier · security-reviewer · devops-engineer
 
 ## Workflows (9)
 /new-project · /analyze-project · /map-project · /add-feature

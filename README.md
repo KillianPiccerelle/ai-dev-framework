@@ -35,7 +35,7 @@ git clone https://github.com/KillianPiccerelle/ai-dev-framework.git ~/ai-dev-fra
 cd ~/ai-dev-framework && chmod +x scripts/install.sh && ./scripts/install.sh
 ```
 
-> **`scripts/install.sh`** installs all 13 agents into `~/.claude/agents/`, all skills into `~/.claude/skills/`, and creates the global `ai-framework` command. Run once — all your projects share the same installation.
+> **`scripts/install.sh`** installs all 15 agents into `~/.claude/agents/`, all skills into `~/.claude/skills/`, and creates the global `ai-framework` command. Run once — all your projects share the same installation.
 
 ### New project from scratch
 
@@ -84,7 +84,7 @@ The framework is built around four primitives that work together.
 ```mermaid
 graph LR
     MEM["📁 memory/\nSource of truth"]
-    AGT["🤖 Agents\n13 specialized personas"]
+    AGT["🤖 Agents\n15 specialized personas"]
     WFL["⚡ Workflows\n9 orchestrated sequences"]
     SKL["🛠 Skills\n5 reusable procedures"]
     HKS["🔧 Hooks\nAutomations"]
@@ -116,6 +116,8 @@ graph LR
 | `code-reviewer` | Read-only code audit — lists BLOCKING / IMPORTANT / SUGGESTION issues, never modifies files | sonnet | read-only |
 | `doc-writer` | Creates and updates README, API docs, guides. Documents what exists, never what is planned | sonnet | active |
 | `verifier` | Fast validation checklist — tests pass, coverage ok, no TODO, docs up to date | haiku | read-only |
+| `security-reviewer` | Read-only security audit — injections, auth bypass, IDOR, exposed secrets, attack surfaces. Produces `docs/security-report.md` with findings by severity | opus | read-only |
+| `devops-engineer` | Generates Dockerfiles (multi-stage, non-root), GitHub Actions CI pipelines, and `.env.example`. Reads `memory/stack.md` to adapt to the detected stack | sonnet | active |
 
 ---
 
