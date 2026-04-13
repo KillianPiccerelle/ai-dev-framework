@@ -211,7 +211,7 @@ ai-framework init
 
 This is **non-destructive** — it never modifies your source code, never overwrites your existing files. What it does:
 - Creates a `memory/` folder with empty template files
-- Copies the 9 workflows into `.claude/commands/` so Claude Code can invoke them
+- Copies the 12 workflows into `.claude/commands/` so Claude Code can invoke them
 - If a `CLAUDE.md` already exists, it backs it up as `CLAUDE.backup.md` before generating a new one
 - Creates `.claude/settings.json` if it doesn't exist
 

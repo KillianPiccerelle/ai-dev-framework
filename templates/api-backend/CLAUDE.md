@@ -4,7 +4,7 @@
 
 ## Agents
 orchestrator · architect · stack-advisor · project-analyzer · codebase-analyst
-backend-dev · debug · test-engineer · qa-engineer · code-reviewer · doc-writer · verifier
+backend-dev · debug · test-engineer · qa-engineer · code-reviewer · doc-writer · verifier · security-reviewer · devops-engineer
 
 ## Workflows
 /new-project · /analyze-project · /map-project · /add-feature

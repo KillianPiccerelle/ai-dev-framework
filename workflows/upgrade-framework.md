@@ -39,7 +39,7 @@ Never overwrite customized workflows (offer .framework.md version for comparison
 
 ## Step 6 — Install missing agents
 Compare ~/.claude/agents/ against v3 agent list.
-Install new agents: codebase-analyst, qa-engineer (new in v3).
+Install any missing agents by comparing ~/.claude/agents/ against the full agent list.
 Never overwrite existing agents.
 
 ## Step 7 — Summary

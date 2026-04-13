@@ -212,7 +212,7 @@ ai-framework init
 
 C'est **non-destructif** — le script ne modifie jamais ton code source, n'écrase jamais tes fichiers existants. Ce qu'il fait concrètement :
 - Crée un dossier `memory/` avec des fichiers templates vides
-- Copie les 9 workflows dans `.claude/commands/` pour que Claude Code puisse les invoquer
+- Copie les 12 workflows dans `.claude/commands/` pour que Claude Code puisse les invoquer
 - Si un `CLAUDE.md` existe déjà, il est sauvegardé en `CLAUDE.backup.md` avant qu'un nouveau soit généré
 - Crée `.claude/settings.json` s'il n'existe pas
 
