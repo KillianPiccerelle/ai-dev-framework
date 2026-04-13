@@ -159,6 +159,8 @@ Les skills encodent un savoir-faire technique réutilisable invocable par slash 
 | API docs | `/api-docs` | Génère une documentation OpenAPI 3.0 depuis les routes existantes, adaptée au framework HTTP détecté (Fastify, Express, FastAPI, NestJS) |
 | oh-my-mermaid | `/oh-my-mermaid` | Génère des diagrammes d'architecture interactifs en scannant le codebase. Fournit les modes scan, push (cloud) et view (visualisateur local) |
 
+> **Roadmap** : Le prochain skill prévu est `code-review-graph` (en développement) qui promet 6,8× moins de tokens dans les revues de code en analysant uniquement les fichiers impactés.
+
 ---
 
 ## Système de mémoire
