@@ -87,7 +87,7 @@ graph LR
     MEM["📁 memory/\nSource de vérité"]
     AGT["🤖 Agents\n15 personas spécialisés"]
     WFL["⚡ Workflows\n12 séquences orchestrées"]
-    SKL["🛠 Skills\n8 procédures réutilisables"]
+    SKL["🛠 Skills\n9 procédures réutilisables"]
     HKS["🔧 Hooks\nAutomations"]
 
     MEM -->|lu avant chaque action| AGT
@@ -157,6 +157,7 @@ Les skills encodent un savoir-faire technique réutilisable invocable par slash 
 | Docker setup | `/docker-setup` | Génère un Dockerfile (multi-stage, non-root, health check) + docker-compose.yml + .dockerignore adaptés à la stack du projet |
 | Env setup | `/env-setup` | Scanne tout le code source pour trouver les variables d'environnement et génère un `.env.example` complet et commenté, groupé par concern |
 | API docs | `/api-docs` | Génère une documentation OpenAPI 3.0 depuis les routes existantes, adaptée au framework HTTP détecté (Fastify, Express, FastAPI, NestJS) |
+| oh-my-mermaid | `/oh-my-mermaid` | Génère des diagrammes d'architecture interactifs en scannant le codebase. Fournit les modes scan, push (cloud) et view (visualisateur local) |
 
 ---
 

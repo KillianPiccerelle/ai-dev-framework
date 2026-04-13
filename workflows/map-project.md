@@ -40,6 +40,20 @@ Generate docs/project-map.md with:
 - External services map
 - Identified issues (circular deps, missing error handling, etc.)
 
+## Step 4.5 — Optional visual diagrams (oh-my-mermaid)
+After generating the ASCII diagram, ask: "Generate interactive architecture diagrams with oh-my-mermaid?"
+
+If yes:
+1. Run `/oh-my-mermaid scan` to analyze the codebase and generate .omm/ diagrams
+2. Ask: "Push diagrams to oh-my-mermaid cloud for sharing?"
+   - If yes: Run `/oh-my-mermaid push` (handles login workflow)
+3. Ask: "Open local viewer to explore diagrams?"
+   - If yes: Run `/oh-my-mermaid view`
+
+If oh-my-mermaid not available or user declines:
+- Continue with ASCII documentation only
+- Inform user: "oh-my-mermaid plugin not installed. ASCII documentation available in docs/project-map.md"
+
 ## Step 5 — Update memory/architecture.md
 If memory/architecture.md exists, offer to update it with insights from the map.
 Never overwrite without user confirmation.
