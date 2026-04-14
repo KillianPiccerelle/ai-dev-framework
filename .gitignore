@@ -7,6 +7,7 @@ memory/progress.md
 memory/domain/
 *.local.md
 FRAMEWORK_CONTEXT.md
+TEST_CODE_REVIEW_GRAPH.md
 
 # Environment
 .env
