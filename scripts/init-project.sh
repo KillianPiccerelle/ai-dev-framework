@@ -3,16 +3,142 @@ set -e
 
 # ai-dev-framework v3 — Project initialization
 # Usage: ./scripts/init-project.sh [template]
+#
 # template: saas | api-backend | fullstack-web | ai-app (optional)
+#
+# If no template is specified, the script will auto-detect the project type:
+# - Analyzes package.json, pyproject.toml, composer.json, requirements.txt
+# - Looks for framework patterns and dependencies
+# - Falls back to minimal CLAUDE.md if detection fails
+#
+# Auto-detection logic:
+# - SaaS: multi-tenant, billing, organizations, Stripe/Paddle
+# - API Backend: Express, FastAPI, Django REST, no frontend framework
+# - Fullstack Web: React/Vue + backend framework
+# - AI App: OpenAI, Anthropic, LangChain, vector databases
+#
+# Examples:
+#   ai-framework init                    # auto-detect
+#   ai-framework init saas               # force SaaS template
+#   ai-framework init fullstack-web      # force Fullstack Web template
 
 TEMPLATE=${1:-""}
-FRAMEWORK_DIR="$(cd "$(dirname "$0")/.." && pwd)"
+FRAMEWORK_DIR="$(cd "$(dirname "$(dirname "$0")")" && pwd)"
 TARGET_DIR="${PWD}"
+
+# Function to detect project type based on file patterns
+# Detection priorities:
+# 1. AI App patterns (OpenAI, Anthropic, LangChain, vector DBs)
+# 2. SaaS patterns (Stripe, multi-tenant, organizations, billing)
+# 3. Fullstack Web patterns (frontend + backend frameworks)
+# 4. API Backend patterns (backend only, no frontend framework)
+# 5. Directory structure fallback (frontend/backend, src/app/api, etc.)
+detect_project_type() {
+  local target_dir="${1:-$TARGET_DIR}"
+  local detected=""
+
+  # Check package.json (Node.js projects)
+  if [ -f "$target_dir/package.json" ]; then
+    local pkg_content=$(cat "$target_dir/package.json" 2>/dev/null || echo "")
+
+    # Check for SaaS patterns
+    if echo "$pkg_content" | grep -iq -e "multi-tenant\|tenant" \
+        || echo "$pkg_content" | grep -iq -e "stripe\|paddle\|recurly" \
+        || echo "$pkg_content" | grep -iq -e "organization\|team\|subscription"; then
+      detected="saas"
+
+    # Check for AI app patterns
+    elif echo "$pkg_content" | grep -iq -e "openai\|anthropic\|langchain\|llamaindex\|pinecone\|weaviate" \
+        || echo "$pkg_content" | grep -iq -e "llama\|mistral\|gemini\|claude" \
+        || echo "$pkg_content" | grep -iq -e "vector\|embedding\|rag"; then
+      detected="ai-app"
+
+    # Check for fullstack web patterns
+    elif echo "$pkg_content" | grep -iq -e "react\|vue\|next\|nuxt\|svelte\|angular" \
+        && echo "$pkg_content" | grep -iq -e "express\|fastify\|koa\|nest\|hapi"; then
+      detected="fullstack-web"
+
+    # Check for API backend patterns
+    elif echo "$pkg_content" | grep -iq -e "express\|fastify\|koa\|nest\|hapi\|graphql\|rest" \
+        && ! echo "$pkg_content" | grep -iq -e "react\|vue\|next\|nuxt\|svelte\|angular"; then
+      detected="api-backend"
+    fi
+  fi
+
+  # Check Python projects (pyproject.toml, requirements.txt)
+  if [ -z "$detected" ] && [ -f "$target_dir/pyproject.toml" ]; then
+    local py_content=$(cat "$target_dir/pyproject.toml" 2>/dev/null || echo "")
+
+    # Check AI patterns first (priority)
+    if echo "$py_content" | grep -iq -e "langchain\|llamaindex\|openai\|anthropic\|pinecone\|weaviate"; then
+      detected="ai-app"
+    elif echo "$py_content" | grep -iq -e "fastapi\|flask\|django\|starlette" \
+        && echo "$py_content" | grep -iq -e "react\|vue\|next\|nuxt" 2>/dev/null; then
+      detected="fullstack-web"
+    elif echo "$py_content" | grep -iq -e "fastapi\|flask\|django\|starlette"; then
+      detected="api-backend"
+    fi
+  fi
+
+  if [ -z "$detected" ] && [ -f "$target_dir/requirements.txt" ]; then
+    local req_content=$(cat "$target_dir/requirements.txt" 2>/dev/null || echo "")
+
+    # Check AI patterns first (priority)
+    if echo "$req_content" | grep -iq -e "langchain\|llamaindex\|openai\|anthropic\|pinecone\|weaviate"; then
+      detected="ai-app"
+    elif echo "$req_content" | grep -iq -e "fastapi\|flask\|django\|starlette" \
+        && echo "$req_content" | grep -iq -e "react\|vue\|django-rest-framework" 2>/dev/null; then
+      detected="fullstack-web"
+    elif echo "$req_content" | grep -iq -e "fastapi\|flask\|django\|starlette"; then
+      detected="api-backend"
+    fi
+  fi
+
+  # Check PHP projects (composer.json)
+  if [ -z "$detected" ] && [ -f "$target_dir/composer.json" ]; then
+    local composer_content=$(cat "$target_dir/composer.json" 2>/dev/null || echo "")
+
+    if echo "$composer_content" | grep -iq -e "laravel\|symfony" \
+        && echo "$composer_content" | grep -iq -e "inertia\|livewire\|vue\|react"; then
+      detected="fullstack-web"
+    elif echo "$composer_content" | grep -iq -e "laravel\|symfony\|slim\|laminas"; then
+      detected="api-backend"
+    fi
+  fi
+
+  # Fallback detection based on directory structure
+  if [ -z "$detected" ]; then
+    if [ -d "$target_dir/frontend" ] && [ -d "$target_dir/backend" ]; then
+      detected="fullstack-web"
+    elif [ -d "$target_dir/src" ] && [ -f "$target_dir/src/app/api"* ] 2>/dev/null; then
+      detected="api-backend"
+    elif [ -d "$target_dir/app" ] && ls "$target_dir/app"/*.py 2>/dev/null | grep -q "ai\|llm\|chat"; then
+      detected="ai-app"
+    fi
+  fi
+
+  echo "$detected"
+}
 
 GREEN='\033[0;32m'; BLUE='\033[0;34m'; YELLOW='\033[1;33m'; NC='\033[0m'
 log()  { echo -e "${BLUE}[ai-dev-framework v3]${NC} $1"; }
 ok()   { echo -e "${GREEN}[ok]${NC} $1"; }
 warn() { echo -e "${YELLOW}[warn]${NC} $1"; }
+
+# Auto-detect project type if no template specified
+if [ -z "$TEMPLATE" ]; then
+  AUTO_DETECTED=$(detect_project_type)
+  if [ -n "$AUTO_DETECTED" ]; then
+    if [ -f "$FRAMEWORK_DIR/templates/$AUTO_DETECTED/CLAUDE.md" ]; then
+      TEMPLATE="$AUTO_DETECTED"
+      log "Auto-detected project type: $TEMPLATE"
+    else
+      warn "Auto-detected '$AUTO_DETECTED' but template not found — using minimal"
+    fi
+  else
+    log "No template specified and could not auto-detect — using minimal"
+  fi
+fi
 
 TEMPLATE_LABEL="${TEMPLATE:-none}"
 log "Init project — template: $TEMPLATE_LABEL | target: $TARGET_DIR"
