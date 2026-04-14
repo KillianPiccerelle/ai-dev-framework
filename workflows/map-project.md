@@ -54,6 +54,23 @@ If oh-my-mermaid not available or user declines:
 - Continue with ASCII documentation only
 - Inform user: "oh-my-mermaid plugin not installed. ASCII documentation available in docs/project-map.md"
 
+## Step 4.6 — Optional structural dependency graph (code-review-graph)
+After oh-my-mermaid option, ask: "Generate structural dependency graph with code-review-graph for token-efficient reviews?"
+
+If yes:
+1. Check if code-review-graph is installed (`pip list | grep code-review-graph`)
+2. If not installed:
+   - Offer to install: "code-review-graph not installed. Install with `pip install code-review-graph`?"
+   - If user accepts, install and proceed
+3. Run `/code-review-graph build` to analyze codebase structure
+4. Show token reduction estimate for future reviews
+5. Ask: "Generate interactive visualization of dependencies?"
+   - If yes: Run `/code-review-graph visualize`
+
+If code-review-graph not available or user declines:
+- Continue without dependency graph
+- Inform user: "code-review-graph plugin not installed. Reviews will analyze all files."
+
 ## Step 5 — Update memory/architecture.md
 If memory/architecture.md exists, offer to update it with insights from the map.
 Never overwrite without user confirmation.

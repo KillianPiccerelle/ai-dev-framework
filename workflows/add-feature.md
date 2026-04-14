@@ -27,8 +27,21 @@ Respect memory/conventions/ and all ADRs.
 Improve code without changing behavior (REFACTOR).
 All tests must stay green.
 
+## Step 4.5 — Impact validation (optional: code-review-graph)
+After implementation, ask: "Validate change impact with code-review-graph?"
+
+If yes:
+1. Run `/code-review-graph impact <changed-files>` to verify impact radius
+2. Ensure no unexpected side effects on unrelated modules
+3. Update graph incrementally: `/code-review-graph update`
+
+If code-review-graph not available:
+- Skip impact validation
+- Proceed to review
+
 ## Step 5 — Review (agent: code-reviewer)
 Read-only audit. If REJECTED: fix BLOCKING items, then re-review.
+Uses code-review-graph if available to reduce token usage by 6.8×.
 
 ## Step 6 — QA (agent: qa-engineer)
 Invoke if feature: exposes user data, accepts external inputs,

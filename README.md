@@ -86,7 +86,7 @@ graph LR
     MEM["📁 memory/\nSource of truth"]
     AGT["🤖 Agents\n15 specialized personas"]
     WFL["⚡ Workflows\n12 orchestrated sequences"]
-    SKL["🛠 Skills\n9 reusable procedures"]
+    SKL["🛠 Skills\n10 reusable procedures"]
     HKS["🔧 Hooks\nAutomations"]
 
     MEM -->|read before acting| AGT
@@ -157,8 +157,9 @@ Skills encode reusable technical know-how invokable via slash command. Each skil
 | Env setup | `/env-setup` | Scans all source files for environment variable references and generates a complete, commented `.env.example` grouped by concern |
 | API docs | `/api-docs` | Generates OpenAPI 3.0 documentation from existing routes, adapted to the detected HTTP framework (Fastify, Express, FastAPI, NestJS) |
 | oh-my-mermaid | `/oh-my-mermaid` | Generates interactive architecture diagrams by scanning the codebase. Provides scan, push (cloud), and view (local viewer) modes |
+| code-review-graph | `/code-review-graph` | Analyzes codebase structure to identify minimal impacted files for reviews. 6.8× token reduction via dependency graph analysis |
 
-> **Roadmap**: The next planned skill is `code-review-graph` (in development) which promises 6.8× fewer tokens in code reviews by analyzing only impacted files.
+> **Roadmap**: Additional skills planned for future releases include integration with more external plugins and tools.
 
 ---
 

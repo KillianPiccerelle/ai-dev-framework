@@ -14,9 +14,9 @@ code-reviewer · doc-writer · verifier · security-reviewer · devops-engineer
 /debug-issue · /refactor · /gen-tests · /project-status · /upgrade-framework
 /security-audit · /setup-ci · /onboard
 
-## Skills (8)
+## Skills (10)
 /stack-advisor · /jwt-auth · /rest-crud · /schema-design · /tdd-workflow
-/docker-setup · /env-setup · /api-docs
+/docker-setup · /env-setup · /api-docs · /oh-my-mermaid · /code-review-graph
 
 ## Working on this repo
 All agents, workflows, and skills are in English — single source of truth.

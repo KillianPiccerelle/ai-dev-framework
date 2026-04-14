@@ -16,6 +16,17 @@ Ask: observed behavior, expected behavior, reproduction conditions, since when.
 Write minimal test that reliably reproduces the bug.
 If not reproducible, ask for more information before continuing.
 
+## Step 2.5 — Dependency analysis (optional: code-review-graph)
+For complex bugs, ask: "Analyze dependencies of affected files with code-review-graph?"
+
+If yes:
+1. Run `/code-review-graph impact <suspected-files>` to identify all potentially affected modules
+2. Use graph to trace transitive dependencies
+3. Narrow investigation scope to impacted files only
+
+If code-review-graph not available:
+- Proceed with traditional dependency tracing
+
 ## Step 3 — Investigation (agent: debug)
 Trace data flow. Formulate 3 hypotheses ranked by probability.
 Test each hypothesis in order.
