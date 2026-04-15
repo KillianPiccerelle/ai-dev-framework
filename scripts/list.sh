@@ -126,6 +126,7 @@ list_skills() {
         local common_skills=(
             "stack-advisor" "jwt-auth" "rest-crud" "schema-design" "tdd-workflow"
             "docker-setup" "env-setup" "api-docs" "oh-my-mermaid" "code-review-graph"
+            "mcp-github"
         )
 
         for skill in "${common_skills[@]}"; do
@@ -148,9 +149,16 @@ list_skills() {
         if [ -n "$skill_files" ]; then
             while IFS= read -r file; do
                 local basename=$(basename "$file" .md)
+                # Try to get skill name from directory name if file is SKILL.md
+                local skill_name="$basename"
+                if [ "$basename" = "SKILL" ]; then
+                    # Get parent directory name
+                    local parent_dir=$(basename $(dirname "$file"))
+                    skill_name="$parent_dir"
+                fi
                 # Skip if already listed
-                if [[ ! " ${skills[@]} " =~ " ${basename} " ]]; then
-                    subitem "/$basename"
+                if [[ ! " ${skills[@]} " =~ " ${skill_name} " ]]; then
+                    subitem "/$skill_name"
                     ((additional_count++))
                 fi
             done <<< "$skill_files"
