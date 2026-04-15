@@ -73,6 +73,9 @@ Once installed, the `ai-framework` command is available globally:
 | `ai-framework doctor` | Run health check and diagnostics |
 | `ai-framework list` | List all available agents, workflows, and skills |
 
+> **Tip**: Tab completion is automatically installed for bash and zsh.  
+> Try `ai-framework <TAB>` to see available commands, and `ai-framework init <TAB>` to see templates.
+
 ### Existing project
 
 ```bash

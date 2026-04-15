@@ -74,6 +74,9 @@ Une fois installé, la commande `ai-framework` est disponible globalement :
 | `ai-framework doctor` | Exécuter un diagnostic de santé et de configuration |
 | `ai-framework list` | Lister tous les agents, workflows, et skills disponibles |
 
+> **Astuce** : L'autocomplétion par tabulation est installée automatiquement pour bash et zsh.  
+> Essaie `ai-framework <TAB>` pour voir les commandes disponibles, et `ai-framework init <TAB>` pour voir les templates.
+
 ### Projet existant
 
 ```bash

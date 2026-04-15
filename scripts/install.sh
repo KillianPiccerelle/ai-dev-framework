@@ -128,6 +128,67 @@ export PATH="$HOME/.local/bin:$PATH"
 
 ok "Global command created: ai-framework"
 
+# ─── Install shell completion ────────────────────────────────────────────────
+
+log "Installing shell completion..."
+
+# Create completion directory
+mkdir -p ~/.config/ai-framework/completions
+
+# Copy completion scripts
+cp "$FRAMEWORK_DIR/scripts/completion.bash" ~/.config/ai-framework/completions/
+cp "$FRAMEWORK_DIR/scripts/completion.zsh" ~/.config/ai-framework/completions/
+
+# Try to detect current shell and setup completion
+CURRENT_SHELL=$(basename "$SHELL" 2>/dev/null || echo "unknown")
+
+case "$CURRENT_SHELL" in
+    bash)
+        # Source completion for current session
+        if [ -f ~/.config/ai-framework/completions/completion.bash ]; then
+            source ~/.config/ai-framework/completions/completion.bash 2>/dev/null && \
+                ok "Bash completion loaded for current session"
+        fi
+
+        # Add to bashrc for future sessions
+        if [ -f "$HOME/.bashrc" ] && ! grep -q "ai-framework completion" "$HOME/.bashrc" 2>/dev/null; then
+            echo '' >> "$HOME/.bashrc"
+            echo '# ai-dev-framework bash completion' >> "$HOME/.bashrc"
+            echo 'if [ -f ~/.config/ai-framework/completions/completion.bash ]; then' >> "$HOME/.bashrc"
+            echo '    source ~/.config/ai-framework/completions/completion.bash' >> "$HOME/.bashrc"
+            echo 'fi' >> "$HOME/.bashrc"
+            ok "Bash completion added to ~/.bashrc"
+        fi
+        ;;
+    zsh)
+        # For zsh, we need to add to fpath and run compinit
+        if [ -f ~/.config/ai-framework/completions/completion.zsh ]; then
+            # Create zsh completion directory
+            mkdir -p ~/.zsh/completions
+            cp ~/.config/ai-framework/completions/completion.zsh ~/.zsh/completions/_ai-framework
+
+            # Add to .zshrc if not already there
+            if [ -f "$HOME/.zshrc" ] && ! grep -q "ai-framework completion" "$HOME/.zshrc" 2>/dev/null; then
+                echo '' >> "$HOME/.zshrc"
+                echo '# ai-dev-framework zsh completion' >> "$HOME/.zshrc"
+                echo 'fpath=(~/.zsh/completions $fpath)' >> "$HOME/.zshrc"
+                echo 'autoload -Uz compinit && compinit' >> "$HOME/.zshrc"
+                ok "Zsh completion configured in ~/.zshrc"
+            fi
+
+            # Load for current session
+            fpath=(~/.zsh/completions $fpath)
+            autoload -Uz compinit && compinit 2>/dev/null
+            ok "Zsh completion loaded for current session"
+        fi
+        ;;
+    *)
+        warn "Shell '$CURRENT_SHELL' not recognized for auto-completion setup"
+        ;;
+esac
+
+ok "Completion scripts installed in ~/.config/ai-framework/completions/"
+
 # PATH is already exported above for the current session.
 # The shell config will load it automatically on next terminal open.
 
@@ -141,6 +202,11 @@ echo "  ai-framework init saas     → new project"
 echo "  ai-framework init          → existing project"
 echo "  ai-framework update        → update the framework"
 echo "  ai-framework version       → check version and updates"
+echo "  ai-framework doctor        → health diagnostics"
+echo "  ai-framework list          → list resources"
+echo ""
+echo "Tab completion installed for $CURRENT_SHELL"
+echo "Try: ai-framework <TAB> to see available commands"
 echo ""
 echo "Next steps:"
 echo "  cd your-project && ai-framework init"
