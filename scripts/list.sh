@@ -127,6 +127,7 @@ list_skills() {
             "stack-advisor" "jwt-auth" "rest-crud" "schema-design" "tdd-workflow"
             "docker-setup" "env-setup" "api-docs" "oh-my-mermaid" "code-review-graph"
             "mcp-github" "mcp-jira" "mcp-notion" "mcp-sync"
+            "repomix" "ui-design" "i18n-check"
         )
 
         for skill in "${common_skills[@]}"; do

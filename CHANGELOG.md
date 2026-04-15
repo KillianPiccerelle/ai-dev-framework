@@ -14,6 +14,14 @@ Format: [Semantic Versioning](https://semver.org) — `feat` bumps minor, `fix` 
   - `/mcp-jira` — tickets, sprints via community MCP servers
   - `/mcp-notion` — external documentation via Notion MCP server
   - `/mcp-sync` — orchestrator: sync GitHub + Jira + Notion → memory/ with conflict resolution
+- **Phase 4 — New plugins from ecosystem research**:
+  - `/repomix` — pack any local or remote repo into a single LLM-optimized file (Tree-sitter, ~70% token reduction)
+  - `/ui-design` — professional UX/UI guidelines for frontend-dev (8px grid, color system, component patterns, WCAG AA)
+  - `/i18n-check` — i18n audit: hardcoded strings, missing locale keys, plural forms, RTL layout issues
+- **Agent improvements (Superpowers + Everything Claude Code patterns)**:
+  - `backend-dev` — added pre-implementation verification: confirm scope, state what will/won't be touched
+  - `frontend-dev` — added /ui-design reference, WCAG AA baseline, explicit loading/error state requirement
+  - `security-reviewer` — added framework-specific checks (Django, Laravel, Spring Boot, Express) + meta-security scan (hooks, CLAUDE.md, MCP configs)
 - **Phase 3 — Developer experience**:
   - `ai-framework doctor` — full installation health diagnostic
   - `ai-framework list` — list all agents, workflows, skills
@@ -29,7 +37,7 @@ Format: [Semantic Versioning](https://semver.org) — `feat` bumps minor, `fix` 
   - Autocompletion updated for all 8 templates
 
 ### Changed
-- Skills count: 10 → 14
+- Skills count: 10 → 17
 - Workflows count: 12 → 15
 - Templates count: 4 → 8
 - Version bumped to v3.1.0

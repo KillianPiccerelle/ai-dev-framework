@@ -111,7 +111,7 @@ graph LR
     MEM["📁 memory/\nSource de vérité"]
     AGT["🤖 Agents\n15 personas spécialisés"]
     WFL["⚡ Workflows\n15 séquences orchestrées"]
-    SKL["🛠 Skills\n14 procédures réutilisables"]
+    SKL["🛠 Skills\n17 procédures réutilisables"]
     HKS["🔧 Hooks\nAutomations"]
 
     MEM -->|lu avant chaque action| AGT
@@ -190,6 +190,9 @@ Les skills encodent un savoir-faire technique réutilisable invocable par slash 
 | MCP Jira | `/mcp-jira` | Se connecte aux serveurs MCP Jira communautaires pour lire tickets, sprints et backlog dans le contexte agent |
 | MCP Notion | `/mcp-notion` | Se connecte au serveur MCP Notion pour lire les pages de documentation externe dans le contexte agent |
 | MCP Sync | `/mcp-sync` | Orchestre la synchronisation multi-sources : récupère le contexte GitHub + Jira + Notion et l'écrit dans `memory/` avec résolution de conflits |
+| Repomix | `/repomix` | Compresse n'importe quel repo local ou distant en un seul fichier optimisé pour les LLMs (~70% réduction tokens via Tree-sitter). Ingère des repos externes comme contexte |
+| UI Design | `/ui-design` | Guidelines UX/UI pour `frontend-dev` : grille 8px, système de couleurs sémantique, patterns de composants, baseline WCAG AA, anti-patterns à éviter |
+| i18n Check | `/i18n-check` | Audit d'internationalisation : détecte les strings codées en dur, clés de locale manquantes, formes plurielles absentes, problèmes de formatage date/nombre, et layout RTL |
 
 ---
 

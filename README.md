@@ -114,7 +114,7 @@ graph LR
     MEM["📁 memory/\nSource of truth"]
     AGT["🤖 Agents\n15 specialized personas"]
     WFL["⚡ Workflows\n12 orchestrated sequences"]
-    SKL["🛠 Skills\n14 reusable procedures"]
+    SKL["🛠 Skills\n17 reusable procedures"]
     HKS["🔧 Hooks\nAutomations"]
 
     MEM -->|read before acting| AGT
@@ -193,6 +193,9 @@ Skills encode reusable technical know-how invokable via slash command. Each skil
 | MCP Jira | `/mcp-jira` | Connects to community Jira MCP servers to read tickets, sprints, and backlog into the agent context |
 | MCP Notion | `/mcp-notion` | Connects to the Notion MCP server to read external documentation pages into the agent context |
 | MCP Sync | `/mcp-sync` | Orchestrates multi-source sync: pulls GitHub + Jira + Notion context and writes it to `memory/` with conflict resolution |
+| Repomix | `/repomix` | Packs any local or remote repository into a single LLM-optimized file (~70% token reduction via Tree-sitter). Feeds external repos as context for analysis or onboarding |
+| UI Design | `/ui-design` | UX/UI guidelines for `frontend-dev`: 8px grid, semantic color system, component patterns (buttons, forms, tables, empty states), WCAG AA baseline, anti-patterns |
+| i18n Check | `/i18n-check` | Internationalization audit: detects hardcoded strings, missing locale keys, plural form gaps, date/number formatting issues, and RTL layout problems |
 
 ---
 

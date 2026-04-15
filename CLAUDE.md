@@ -14,10 +14,11 @@ code-reviewer · doc-writer · verifier · security-reviewer · devops-engineer
 /debug-issue · /refactor · /gen-tests · /project-status · /upgrade-framework
 /security-audit · /setup-ci · /onboard · /dependency-update · /perf-audit · /accessibility-audit
 
-## Skills (14)
+## Skills (17)
 /stack-advisor · /jwt-auth · /rest-crud · /schema-design · /tdd-workflow
 /docker-setup · /env-setup · /api-docs · /oh-my-mermaid · /code-review-graph
 /mcp-github · /mcp-jira · /mcp-notion · /mcp-sync
+/repomix · /ui-design · /i18n-check
 
 ## Working on this repo
 All agents, workflows, and skills are in English — single source of truth.
