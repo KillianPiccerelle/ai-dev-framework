@@ -76,6 +76,9 @@ case "\$1" in
   doctor)
     exec bash "\$FRAMEWORK_DIR/scripts/doctor.sh"
     ;;
+  list)
+    exec bash "\$FRAMEWORK_DIR/scripts/list.sh"
+    ;;
   *)
     echo "Usage: ai-framework <command> [options]"
     echo ""
@@ -87,6 +90,7 @@ case "\$1" in
     echo "  version [cmd]     Show version and check for updates"
     echo "                    Subcommands: show, check, set <version>"
     echo "  doctor            Run health check and diagnostics"
+    echo "  list              List all available agents, workflows, and skills"
     echo ""
     echo "Examples:"
     echo "  ai-framework init saas"
@@ -95,6 +99,7 @@ case "\$1" in
     echo "  ai-framework version"
     echo "  ai-framework version check"
     echo "  ai-framework doctor"
+    echo "  ai-framework list"
     ;;
 esac
 WRAPPER

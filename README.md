@@ -71,6 +71,7 @@ Once installed, the `ai-framework` command is available globally:
 | `ai-framework version check` | Silent check for CI/CD (returns exit codes) |
 | `ai-framework version set <version>` | Update version file (release process) |
 | `ai-framework doctor` | Run health check and diagnostics |
+| `ai-framework list` | List all available agents, workflows, and skills |
 
 ### Existing project
 
