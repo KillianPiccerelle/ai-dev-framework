@@ -62,7 +62,7 @@ Detailed instructions for the agent.
    - **Memory update (mandatory)** — explicit checklist at the end
 
 3. Register the slash command in `.claude/settings.json` if needed
-4. Update `CLAUDE.md`, `README.md`, `README.md`
+4. Update `CLAUDE.md`, `README.md`, `docs/fr/README.md`
 
 ---
 
@@ -88,7 +88,7 @@ tags: [tag1, tag2]
 ```
 
 4. Add to `scripts/list.sh` in the `common_skills` array
-5. Update `CLAUDE.md` skills count, `README.md`, `README.md`
+5. Update `CLAUDE.md` skills count, `README.md`, `docs/fr/README.md`
 
 ---
 

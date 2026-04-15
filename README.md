@@ -113,7 +113,7 @@ The framework is built around four primitives that work together.
 graph LR
     MEM["📁 memory/\nSource of truth"]
     AGT["🤖 Agents\n15 specialized personas"]
-    WFL["⚡ Workflows\n12 orchestrated sequences"]
+    WFL["⚡ Workflows\n15 orchestrated sequences"]
     SKL["🛠 Skills\n17 reusable procedures"]
     HKS["🔧 Hooks\nAutomations"]
 
@@ -339,6 +339,8 @@ This installs only missing workflows — your customized ones are preserved.
 ## Documentation
 
 - [Documentation française](docs/fr/README.md)
+- [Contributing guide](docs/contributing.md)
+- [Companion tools](docs/companion-tools.md) — cc-lens, ccxray, model routing
 
 ## Contributing
 

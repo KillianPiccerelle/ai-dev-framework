@@ -61,7 +61,7 @@ Instructions détaillées pour l'agent.
    - **Steps** — numérotées, avec assignment d'agent
    - **Memory update (mandatory)** — checklist explicite en fin de workflow
 
-3. Mettre à jour `CLAUDE.md`, `README.md`, `README.md`
+3. Mettre à jour `CLAUDE.md`, `README.md`, `docs/fr/README.md`
 
 ---
 
@@ -87,7 +87,7 @@ tags: [tag1, tag2]
 ```
 
 4. Ajouter dans `scripts/list.sh` (tableau `common_skills`)
-5. Mettre à jour `CLAUDE.md`, `README.md`, `README.md`
+5. Mettre à jour `CLAUDE.md`, `README.md`, `docs/fr/README.md`
 
 ---
 

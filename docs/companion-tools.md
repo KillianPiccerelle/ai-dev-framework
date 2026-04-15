@@ -50,7 +50,7 @@ npx ccxray
 - Verify that memory/ files are being loaded as expected
 - Tune agent prompts based on actual token usage
 
-**Source:** in hesreallyhim/awesome-claude-code
+**Source:** https://github.com/hesreallyhim/awesome-claude-code (search "ccxray")
 
 ---
 

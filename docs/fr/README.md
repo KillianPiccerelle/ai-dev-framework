@@ -139,7 +139,7 @@ graph LR
 | `test-engineer` | Écrit les tests avant l'implémentation (phase RED), applique TDD, cible 80%+ de couverture | sonnet | actif |
 | `qa-engineer` | Tests avancés — détecte les edge cases, vulnérabilités de sécurité, chemins de code non couverts | sonnet | actif |
 | `code-reviewer` | Audit de code en lecture seule — liste les problèmes BLOQUANT / IMPORTANT / SUGGESTION, ne modifie jamais de fichiers | sonnet | lecture seule |
-| `doc-writer` | Crée et met à jour README, docs API, guides. Documente ce qui existe, jamais ce qui est prévu | sonnet | actif |
+| `doc-writer` | Crée et met à jour README, docs API, guides. Documente ce qui existe, jamais ce qui est prévu | haiku | actif |
 | `verifier` | Checklist de validation rapide — tests passent, couverture ok, pas de TODO, docs à jour | haiku | lecture seule |
 | `security-reviewer` | Audit de sécurité en lecture seule — injections, auth bypass, IDOR, secrets exposés, surfaces d'attaque. Produit `docs/security-report.md` avec les findings classés par criticité | opus | lecture seule |
 | `devops-engineer` | Génère Dockerfiles (multi-stage, non-root), pipelines CI GitHub Actions et `.env.example`. Lit `memory/stack.md` pour s'adapter à la stack détectée | sonnet | actif |
@@ -365,6 +365,15 @@ Instructions système de l'agent...
 L'agent doit savoir quoi lire dans `memory/` avant d'agir, quoi produire et où le mettre, et avoir une règle claire sur ce qu'il ne fait pas.
 
 ---
+
+## Documentation
+
+- [Guide de contribution](contributing.md)
+- [Outils complémentaires](../companion-tools.md) — cc-lens, ccxray, model routing
+
+## Contribuer
+
+Contributions bienvenues. Voir [contributing.md](contributing.md) pour les guidelines sur l'ajout d'agents, workflows, skills et templates.
 
 ## Licence
 

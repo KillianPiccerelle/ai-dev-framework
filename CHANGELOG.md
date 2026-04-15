@@ -42,6 +42,16 @@ Format: [Semantic Versioning](https://semver.org) — `feat` bumps minor, `fix` 
 - Templates count: 4 → 8
 - Version bumped to v3.1.0
 
+- **Phase 6 — Intelligence & robustesse**:
+  - `orchestrator` — circuit breaker: max 3 retries per step, max 5 agent calls without checkpoint
+  - `architect` — mandatory sprint contracts (success criteria, out of scope, risk) before any delegation
+  - `/add-feature` — sprint contract + context reset guidance for large features
+  - `/refactor` — context reset point with `docs/refactor-plan.md` handoff
+  - `/project-status` — memory lint step: detects stale entries, contradictions, orphaned pages in `memory/`
+  - `doctor.sh` — validates agent/workflow/skill file structure (frontmatter, Memory update sections)
+  - `doc-writer` — model downgraded to `haiku` (formatting task, not reasoning)
+  - `docs/companion-tools.md` — cc-lens + ccxray reference + model routing criteria table
+
 ---
 
 ## [v3.0.0] — 2026-03-01
