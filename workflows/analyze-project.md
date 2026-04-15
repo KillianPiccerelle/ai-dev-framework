@@ -51,5 +51,8 @@ Ask Claude: "Summarize this session and update memory/progress.md."
 Copy workflows to .claude/commands/. Do not overwrite custom workflows.
 Offer framework version as workflow-name.framework.md for comparison.
 
+## Memory update (mandatory)
+Update memory/progress.md with: files generated, files preserved, migration performed, recommended next step.
+
 ## Step 6 — Summary (orchestrator)
 Generated files / Preserved files / Migration performed / Next steps

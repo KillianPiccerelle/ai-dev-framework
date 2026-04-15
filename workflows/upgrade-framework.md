@@ -42,6 +42,9 @@ Compare ~/.claude/agents/ against v3 agent list.
 Install any missing agents by comparing ~/.claude/agents/ against the full agent list.
 Never overwrite existing agents.
 
+## Memory update (mandatory)
+Update memory/progress.md with: framework version migrated from/to, files upgraded, files preserved, items needing manual review.
+
 ## Step 7 — Summary
 Report: what was upgraded, what was preserved, what needs manual review.
 Recommended next step: /map-project to generate docs/project-map.md.

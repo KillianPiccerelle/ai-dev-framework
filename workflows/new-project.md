@@ -38,6 +38,9 @@ Create directory structure and base files per project type.
 Create .env.example with all required environment variables.
 Initialize git with first commit.
 
+## Memory update (mandatory)
+Update memory/progress.md with: what was scaffolded, stack chosen, architecture decisions, next recommended step.
+
 ## Step 6 — Summary
 Present: what was created, generated memory files, command to start: /add-feature
 

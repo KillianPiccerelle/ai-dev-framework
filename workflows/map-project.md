@@ -75,5 +75,9 @@ If code-review-graph not available or user declines:
 If memory/architecture.md exists, offer to update it with insights from the map.
 Never overwrite without user confirmation.
 
+## Memory update (mandatory)
+If memory/architecture.md was updated, record the update in memory/progress.md.
+Note: docs/project-map.md is generated output, not a memory file.
+
 ## Step 6 — Summary
 Present the generated file path and key findings to the user.
