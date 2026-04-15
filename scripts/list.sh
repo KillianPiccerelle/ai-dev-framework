@@ -126,7 +126,7 @@ list_skills() {
         local common_skills=(
             "stack-advisor" "jwt-auth" "rest-crud" "schema-design" "tdd-workflow"
             "docker-setup" "env-setup" "api-docs" "oh-my-mermaid" "code-review-graph"
-            "mcp-github" "mcp-jira" "mcp-notion"
+            "mcp-github" "mcp-jira" "mcp-notion" "mcp-sync"
         )
 
         for skill in "${common_skills[@]}"; do
@@ -252,7 +252,8 @@ list_commands() {
     subitem "This command - list all resources"
 
     echo ""
-    echo "  Templates: saas, api-backend, fullstack-web, ai-app"
+    echo "  Templates: saas, api-backend, fullstack-web, ai-app,"
+    echo "             mobile-backend, cli-tool, data-pipeline, monorepo"
     echo "  Example: ai-framework init saas"
 }
 

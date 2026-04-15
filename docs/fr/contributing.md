@@ -48,7 +48,7 @@ Contraintes explicites — ce qu'il délègue aux autres agents.
 Instructions détaillées pour l'agent.
 ```
 
-3. Mettre à jour `CLAUDE.md` et `FRAMEWORK_CONTEXT.md` (compteur agents)
+3. Mettre à jour `CLAUDE.md` et `README.md` (compteur agents)
 4. Mettre à jour `README.md` et `docs/fr/README.md`
 
 ---
@@ -61,7 +61,7 @@ Instructions détaillées pour l'agent.
    - **Steps** — numérotées, avec assignment d'agent
    - **Memory update (mandatory)** — checklist explicite en fin de workflow
 
-3. Mettre à jour `CLAUDE.md`, `README.md`, `FRAMEWORK_CONTEXT.md`
+3. Mettre à jour `CLAUDE.md`, `README.md`, `README.md`
 
 ---
 
@@ -87,7 +87,7 @@ tags: [tag1, tag2]
 ```
 
 4. Ajouter dans `scripts/list.sh` (tableau `common_skills`)
-5. Mettre à jour `CLAUDE.md`, `README.md`, `FRAMEWORK_CONTEXT.md`
+5. Mettre à jour `CLAUDE.md`, `README.md`, `README.md`
 
 ---
 
@@ -119,7 +119,7 @@ security: description   # correction sécurité
 
 - [ ] Core en anglais (agents/workflows/skills)
 - [ ] Checklist "Memory update" présente dans tout nouveau workflow
-- [ ] Compteurs mis à jour dans `CLAUDE.md` et `FRAMEWORK_CONTEXT.md`
+- [ ] Compteurs mis à jour dans `CLAUDE.md` et `README.md`
 - [ ] `scripts/list.sh` mis à jour si nouveau skill
 - [ ] Compteurs README.md corrects
 - [ ] Pas de secrets ou credentials commitées

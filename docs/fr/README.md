@@ -3,7 +3,7 @@
 > Framework personnel de développement assisté par IA — v3
 
 **Auteur :** [KillianPiccerelle](https://github.com/KillianPiccerelle)
-**Version :** 3.0.0
+**Version :** 3.1.0
 
 ---
 
@@ -55,6 +55,10 @@ L'argument `[template]` est **optionnel**. Il préconfigure ton `CLAUDE.md` avec
 | `api-backend` | Tu construis une API REST/GraphQL pure |
 | `fullstack-web` | Tu construis une application web fullstack (frontend + backend) |
 | `ai-app` | Tu construis une application avec des fonctionnalités LLM |
+| `mobile-backend` | Tu construis un backend REST/GraphQL pour une app iOS/Android |
+| `cli-tool` | Tu construis une application en ligne de commande |
+| `data-pipeline` | Tu construis un pipeline de traitement de données batch ou streaming |
+| `monorepo` | Tu gères plusieurs packages/apps dans un seul repo |
 | *(aucun)* | Ton projet ne rentre dans aucune catégorie, ou tu préfères démarrer minimal |
 
 ---
@@ -107,7 +111,7 @@ graph LR
     MEM["📁 memory/\nSource de vérité"]
     AGT["🤖 Agents\n15 personas spécialisés"]
     WFL["⚡ Workflows\n15 séquences orchestrées"]
-    SKL["🛠 Skills\n10 procédures réutilisables"]
+    SKL["🛠 Skills\n14 procédures réutilisables"]
     HKS["🔧 Hooks\nAutomations"]
 
     MEM -->|lu avant chaque action| AGT
@@ -182,8 +186,10 @@ Les skills encodent un savoir-faire technique réutilisable invocable par slash 
 | API docs | `/api-docs` | Génère une documentation OpenAPI 3.0 depuis les routes existantes, adaptée au framework HTTP détecté (Fastify, Express, FastAPI, NestJS) |
 | oh-my-mermaid | `/oh-my-mermaid` | Génère des diagrammes d'architecture interactifs en scannant le codebase. Fournit les modes scan, push (cloud) et view (visualisateur local) |
 | code-review-graph | `/code-review-graph` | Analyse la structure du codebase pour identifier les fichiers impactés minimalement dans les reviews. Réduction de 6,8× des tokens via l'analyse du graphe de dépendances |
-
-> **Roadmap** : D'autres skills sont prévus pour les versions futures, incluant l'intégration avec davantage de plugins et outils externes.
+| MCP GitHub | `/mcp-github` | Se connecte au github-mcp-server officiel pour lire issues, PRs et commits directement dans le contexte agent |
+| MCP Jira | `/mcp-jira` | Se connecte aux serveurs MCP Jira communautaires pour lire tickets, sprints et backlog dans le contexte agent |
+| MCP Notion | `/mcp-notion` | Se connecte au serveur MCP Notion pour lire les pages de documentation externe dans le contexte agent |
+| MCP Sync | `/mcp-sync` | Orchestre la synchronisation multi-sources : récupère le contexte GitHub + Jira + Notion et l'écrit dans `memory/` avec résolution de conflits |
 
 ---
 
@@ -218,6 +224,10 @@ Si ton projet est déjà en cours, passe directement à [Intégrer le framework 
 | `api-backend` | `ai-framework init api-backend` | Versioning des routes (/v1/), politique de breaking changes, rate limiting sur les routes publiques |
 | `fullstack-web` | `ai-framework init fullstack-web` | Types partagés dans `shared/`, appels API centralisés, scope de l'état global |
 | `ai-app` | `ai-framework init ai-app` | Prompts comme code versionné, couche service LLM centralisée, cost tracking, streaming avec fallback, evals obligatoires avant ship |
+| `mobile-backend` | `ai-framework init mobile-backend` | JWT + refresh tokens, push notifications (FCM/APNs), sync offline avec résolution de conflits, rate limiting par appareil |
+| `cli-tool` | `ai-framework init cli-tool` | Conventions exit codes (0/1/2), --help sur chaque commande, séparation stdin/stdout/stderr, commandes idempotentes |
+| `data-pipeline` | `ai-framework init data-pipeline` | Runs idempotents, backfill dès le départ, dead letter queue, checkpointing, classification PII |
+| `monorepo` | `ai-framework init monorepo` | Frontières de workspaces, types partagés dans packages/types, CI change-aware (affected uniquement), releases coordonnées via changesets |
 | *(aucun)* | `ai-framework init` | Setup minimal — templates mémoire et workflows uniquement, pas de règles prédéfinies |
 
 ---
@@ -239,7 +249,7 @@ ai-framework init
 
 C'est **non-destructif** — le script ne modifie jamais ton code source, n'écrase jamais tes fichiers existants. Ce qu'il fait concrètement :
 - Crée un dossier `memory/` avec des fichiers templates vides
-- Copie les 12 workflows dans `.claude/commands/` pour que Claude Code puisse les invoquer
+- Copie les 15 workflows dans `.claude/commands/` pour que Claude Code puisse les invoquer
 - Si un `CLAUDE.md` existe déjà, il est sauvegardé en `CLAUDE.backup.md` avant qu'un nouveau soit généré
 - Crée `.claude/settings.json` s'il n'existe pas
 

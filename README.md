@@ -114,7 +114,7 @@ graph LR
     MEM["📁 memory/\nSource of truth"]
     AGT["🤖 Agents\n15 specialized personas"]
     WFL["⚡ Workflows\n12 orchestrated sequences"]
-    SKL["🛠 Skills\n10 reusable procedures"]
+    SKL["🛠 Skills\n14 reusable procedures"]
     HKS["🔧 Hooks\nAutomations"]
 
     MEM -->|read before acting| AGT
@@ -189,8 +189,10 @@ Skills encode reusable technical know-how invokable via slash command. Each skil
 | API docs | `/api-docs` | Generates OpenAPI 3.0 documentation from existing routes, adapted to the detected HTTP framework (Fastify, Express, FastAPI, NestJS) |
 | oh-my-mermaid | `/oh-my-mermaid` | Generates interactive architecture diagrams by scanning the codebase. Provides scan, push (cloud), and view (local viewer) modes |
 | code-review-graph | `/code-review-graph` | Analyzes codebase structure to identify minimal impacted files for reviews. 6.8× token reduction via dependency graph analysis |
-
-> **Roadmap**: Additional skills planned for future releases include integration with more external plugins and tools.
+| MCP GitHub | `/mcp-github` | Connects to the official github-mcp-server to read issues, PRs, and commits directly into the agent context |
+| MCP Jira | `/mcp-jira` | Connects to community Jira MCP servers to read tickets, sprints, and backlog into the agent context |
+| MCP Notion | `/mcp-notion` | Connects to the Notion MCP server to read external documentation pages into the agent context |
+| MCP Sync | `/mcp-sync` | Orchestrates multi-source sync: pulls GitHub + Jira + Notion context and writes it to `memory/` with conflict resolution |
 
 ---
 
@@ -250,7 +252,7 @@ ai-framework init
 
 This is **non-destructive** — it never modifies your source code, never overwrites your existing files. What it does:
 - Creates a `memory/` folder with empty template files
-- Copies the 12 workflows into `.claude/commands/` so Claude Code can invoke them
+- Copies the 15 workflows into `.claude/commands/` so Claude Code can invoke them
 - If a `CLAUDE.md` already exists, it backs it up as `CLAUDE.backup.md` before generating a new one
 - Creates `.claude/settings.json` if it doesn't exist
 

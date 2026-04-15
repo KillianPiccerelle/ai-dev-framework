@@ -20,10 +20,19 @@ Format: [Semantic Versioning](https://semver.org) — `feat` bumps minor, `fix` 
   - Bash/zsh autocompletion for `ai-framework` commands
 - **New workflows**: `/perf-audit`, `/dependency-update`, `/accessibility-audit`
 - Helper scripts: `perf-helper.py`, `a11y-helper.py`, `dependency-helper.py`
+- **Phase 5 — Documentation & templates**:
+  - `CHANGELOG.md` — versioned history
+  - `docs/contributing.md` (EN) + `docs/fr/contributing.md` (FR)
+  - Version, license, and Claude Code badges in README
+  - 4 new project templates: `mobile-backend`, `cli-tool`, `data-pipeline`, `monorepo`
+  - Auto-detection in `init-project.sh` for new template types
+  - Autocompletion updated for all 8 templates
 
 ### Changed
 - Skills count: 10 → 14
 - Workflows count: 12 → 15
+- Templates count: 4 → 8
+- Version bumped to v3.1.0
 
 ---
 

@@ -48,7 +48,7 @@ Explicit constraints — what to delegate to other agents.
 Detailed instructions for the agent.
 ```
 
-3. Update `CLAUDE.md` and `FRAMEWORK_CONTEXT.md` agent count
+3. Update `CLAUDE.md` and `README.md` agent count
 4. Update `README.md` and `docs/fr/README.md`
 
 ---
@@ -62,7 +62,7 @@ Detailed instructions for the agent.
    - **Memory update (mandatory)** — explicit checklist at the end
 
 3. Register the slash command in `.claude/settings.json` if needed
-4. Update `CLAUDE.md`, `README.md`, `FRAMEWORK_CONTEXT.md`
+4. Update `CLAUDE.md`, `README.md`, `README.md`
 
 ---
 
@@ -88,7 +88,7 @@ tags: [tag1, tag2]
 ```
 
 4. Add to `scripts/list.sh` in the `common_skills` array
-5. Update `CLAUDE.md` skills count, `README.md`, `FRAMEWORK_CONTEXT.md`
+5. Update `CLAUDE.md` skills count, `README.md`, `README.md`
 
 ---
 
@@ -120,7 +120,7 @@ security: description   # security fix
 
 - [ ] English core (agents/workflows/skills)
 - [ ] Memory update checklist in any new workflow
-- [ ] Agent updated in `CLAUDE.md` and `FRAMEWORK_CONTEXT.md`
+- [ ] Agent updated in `CLAUDE.md` and `README.md`
 - [ ] `scripts/list.sh` updated if new skill added
 - [ ] README.md counts accurate
 - [ ] No secrets or credentials committed

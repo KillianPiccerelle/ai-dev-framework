@@ -84,7 +84,8 @@ case "\$1" in
     echo ""
     echo "Commands:"
     echo "  init [template]   Initialize the framework in the current project"
-    echo "                    Templates: saas | api-backend | fullstack-web | ai-app"
+    echo "                    Templates: saas | api-backend | fullstack-web | ai-app
+                              mobile-backend | cli-tool | data-pipeline | monorepo"
     echo "  update            Update the framework to the latest version"
     echo "  install           Re-run global installation"
     echo "  version [cmd]     Show version and check for updates"
