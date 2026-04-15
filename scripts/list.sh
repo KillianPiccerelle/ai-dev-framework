@@ -126,7 +126,7 @@ list_skills() {
         local common_skills=(
             "stack-advisor" "jwt-auth" "rest-crud" "schema-design" "tdd-workflow"
             "docker-setup" "env-setup" "api-docs" "oh-my-mermaid" "code-review-graph"
-            "mcp-github" "mcp-jira"
+            "mcp-github" "mcp-jira" "mcp-notion"
         )
 
         for skill in "${common_skills[@]}"; do
