@@ -70,7 +70,11 @@ case "\$1" in
     exec bash "\$FRAMEWORK_DIR/scripts/install.sh"
     ;;
   version)
+    shift
     exec bash "\$FRAMEWORK_DIR/scripts/version.sh" "\$@"
+    ;;
+  doctor)
+    exec bash "\$FRAMEWORK_DIR/scripts/doctor.sh"
     ;;
   *)
     echo "Usage: ai-framework <command> [options]"
@@ -82,6 +86,7 @@ case "\$1" in
     echo "  install           Re-run global installation"
     echo "  version [cmd]     Show version and check for updates"
     echo "                    Subcommands: show, check, set <version>"
+    echo "  doctor            Run health check and diagnostics"
     echo ""
     echo "Examples:"
     echo "  ai-framework init saas"
@@ -89,6 +94,7 @@ case "\$1" in
     echo "  ai-framework update"
     echo "  ai-framework version"
     echo "  ai-framework version check"
+    echo "  ai-framework doctor"
     ;;
 esac
 WRAPPER

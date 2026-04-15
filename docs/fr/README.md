@@ -71,6 +71,7 @@ Une fois installé, la commande `ai-framework` est disponible globalement :
 | `ai-framework version` | Afficher la version et vérifier les mises à jour |
 | `ai-framework version check` | Vérification silencieuse pour CI/CD (retourne codes de sortie) |
 | `ai-framework version set <version>` | Mettre à jour le fichier de version (processus de release) |
+| `ai-framework doctor` | Exécuter un diagnostic de santé et de configuration |
 
 ### Projet existant
 
