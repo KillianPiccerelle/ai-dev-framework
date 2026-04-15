@@ -14,13 +14,14 @@ code-reviewer · doc-writer · verifier · security-reviewer · devops-engineer
 /debug-issue · /refactor · /gen-tests · /project-status · /upgrade-framework
 /security-audit · /setup-ci · /onboard · /dependency-update · /perf-audit · /accessibility-audit
 
-## Skills (10)
+## Skills (14)
 /stack-advisor · /jwt-auth · /rest-crud · /schema-design · /tdd-workflow
 /docker-setup · /env-setup · /api-docs · /oh-my-mermaid · /code-review-graph
+/mcp-github · /mcp-jira · /mcp-notion · /mcp-sync
 
 ## Working on this repo
 All agents, workflows, and skills are in English — single source of truth.
 Docs: docs/fr/README.md
 
 ## Contributing
-See docs/fr/README.md for the French documentation.
+See docs/contributing.md (EN) or docs/fr/contributing.md (FR).
