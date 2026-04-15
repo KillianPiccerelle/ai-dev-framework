@@ -106,7 +106,7 @@ Le framework est construit autour de quatre primitives qui fonctionnent ensemble
 graph LR
     MEM["📁 memory/\nSource de vérité"]
     AGT["🤖 Agents\n15 personas spécialisés"]
-    WFL["⚡ Workflows\n12 séquences orchestrées"]
+    WFL["⚡ Workflows\n15 séquences orchestrées"]
     SKL["🛠 Skills\n10 procédures réutilisables"]
     HKS["🔧 Hooks\nAutomations"]
 
@@ -162,6 +162,7 @@ Les workflows sont invoqués comme slash commands depuis `.claude/commands/`. Ch
 | Onboarding | `/onboard` | Lit tous les fichiers `memory/` et génère `docs/onboarding.md` — un guide complet de prise en main pour un nouveau développeur qui rejoint le projet. |
 | Mise à jour dépendances | `/dependency-update` | Met à jour les dépendances du projet de manière sécurisée avec vérifications et tests. Détecte le gestionnaire de packages, vérifie les mises à jour, applique les updates patch/minor en sécurité, exécute les tests, génère un rapport. |
 | Audit performance | `/perf-audit` | Analyse les métriques de performance des applications web, API, ou CLI. Identifie les bottlenecks, fournit des recommandations d'optimisation, génère des rapports de performance. |
+| Audit accessibilité | `/accessibility-audit` | Audit WCAG d'accessibilité pour applications web. Tests pour différents handicaps, tests automatisés et manuels, vérification de conformité, et plan de correction. |
 
 ---
 

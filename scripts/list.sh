@@ -75,9 +75,10 @@ list_workflows() {
         "new-project" "analyze-project" "map-project" "add-feature"
         "debug-issue" "refactor" "gen-tests" "project-status"
         "upgrade-framework" "security-audit" "setup-ci" "onboard"
+        "dependency-update" "perf-audit" "accessibility-audit"
     )
 
-    info "Available workflows (12):"
+    info "Available workflows (15):"
 
     for workflow in "${workflows[@]}"; do
         local description=""
@@ -95,6 +96,9 @@ list_workflows() {
             "security-audit") description="Full security audit with report" ;;
             "setup-ci") description="CI/CD pipeline generation" ;;
             "onboard") description="Generate onboarding documentation" ;;
+            "dependency-update") description="Securely updates dependencies with testing and safety checks" ;;
+            "perf-audit") description="Analyzes application performance metrics and provides optimization recommendations" ;;
+            "accessibility-audit") description="WCAG accessibility audit for web applications with compliance checking" ;;
         esac
 
         if [ -f "$WORKFLOWS_DIR/$workflow.md" ]; then
@@ -255,8 +259,8 @@ print_summary() {
     echo "             15 framework agents"
     echo "             $((total_agents - 15)) system/optional agents"
 
-    # Count workflows (always 12 in source)
-    echo "Workflows:   12 available (/workflow-name)"
+    # Count workflows (15 in source framework)
+    echo "Workflows:   15 available (/workflow-name)"
 
     # Count skills
     local total_skills=0

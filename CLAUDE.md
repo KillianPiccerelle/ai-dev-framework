@@ -9,10 +9,10 @@ orchestrator · architect · stack-advisor · project-analyzer · codebase-analy
 backend-dev · frontend-dev · debug · test-engineer · qa-engineer
 code-reviewer · doc-writer · verifier · security-reviewer · devops-engineer
 
-## Workflows (12)
+## Workflows (15)
 /new-project · /analyze-project · /map-project · /add-feature
 /debug-issue · /refactor · /gen-tests · /project-status · /upgrade-framework
-/security-audit · /setup-ci · /onboard
+/security-audit · /setup-ci · /onboard · /dependency-update · /perf-audit · /accessibility-audit
 
 ## Skills (10)
 /stack-advisor · /jwt-auth · /rest-crud · /schema-design · /tdd-workflow
