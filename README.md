@@ -1,9 +1,13 @@
 # ai-dev-framework
 
+[![Version](https://img.shields.io/badge/version-v3.1.0-blue)](https://github.com/KillianPiccerelle/ai-dev-framework/releases)
+[![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
+[![Claude Code](https://img.shields.io/badge/Claude%20Code-compatible-orange)](https://claude.ai/code)
+
 > Personal AI-assisted development framework — v3
 
 **Author:** [KillianPiccerelle](https://github.com/KillianPiccerelle)
-**Version:** 3.0.0
+**Version:** 3.1.0
 
 ---
 
@@ -54,6 +58,10 @@ The `[template]` argument is **optional**. It pre-configures your `CLAUDE.md` wi
 | `api-backend` | Building a pure REST/GraphQL API |
 | `fullstack-web` | Building a fullstack web application (frontend + backend) |
 | `ai-app` | Building an application with LLM features |
+| `mobile-backend` | Building a REST/GraphQL backend for iOS/Android apps |
+| `cli-tool` | Building a command-line application |
+| `data-pipeline` | Building a batch or streaming data processing pipeline |
+| `monorepo` | Managing multiple packages/apps in a single repository |
 | *(none)* | Your project doesn't fit any category, or you prefer to start minimal |
 
 ---
@@ -217,6 +225,10 @@ If your project is already in progress, skip this section and go to [Integrating
 | `api-backend` | `ai-framework init api-backend` | API versioning (/v1/), breaking change policy, rate limiting on public routes |
 | `fullstack-web` | `ai-framework init fullstack-web` | Shared types in `shared/`, centralized API calls, global state scope |
 | `ai-app` | `ai-framework init ai-app` | Prompts as versioned code, centralized LLM service layer, cost tracking, streaming with fallback, evals required before ship |
+| `mobile-backend` | `ai-framework init mobile-backend` | JWT + refresh tokens, push notifications (FCM/APNs), offline sync with conflict resolution, per-device rate limiting |
+| `cli-tool` | `ai-framework init cli-tool` | Exit code conventions (0/1/2), --help on every command, stdin/stdout/stderr separation, idempotent commands |
+| `data-pipeline` | `ai-framework init data-pipeline` | Idempotent runs, backfill-ready design, dead letter queue, checkpointing, PII classification |
+| `monorepo` | `ai-framework init monorepo` | Workspace boundaries, shared types in packages/types, change-aware CI (affected only), coordinated releases via changesets |
 | *(none)* | `ai-framework init` | Minimal setup — memory templates and workflows only, no preset rules |
 
 ---
@@ -325,7 +337,7 @@ This installs only missing workflows — your customized ones are preserved.
 
 ## Contributing
 
-Contributions welcome. Open an issue or a pull request.
+Contributions welcome. See [docs/contributing.md](docs/contributing.md) for guidelines on adding agents, workflows, skills, and templates.
 
 ## License
 

@@ -4,7 +4,7 @@ set -e
 # ai-dev-framework v3 — Project initialization
 # Usage: ./scripts/init-project.sh [template]
 #
-# template: saas | api-backend | fullstack-web | ai-app (optional)
+# template: saas | api-backend | fullstack-web | ai-app | mobile-backend | cli-tool | data-pipeline | monorepo (optional)
 #
 # If no template is specified, the script will auto-detect the project type:
 # - Analyzes package.json, pyproject.toml, composer.json, requirements.txt
@@ -30,9 +30,13 @@ TARGET_DIR="${PWD}"
 # Detection priorities:
 # 1. AI App patterns (OpenAI, Anthropic, LangChain, vector DBs)
 # 2. SaaS patterns (Stripe, multi-tenant, organizations, billing)
-# 3. Fullstack Web patterns (frontend + backend frameworks)
-# 4. API Backend patterns (backend only, no frontend framework)
-# 5. Directory structure fallback (frontend/backend, src/app/api, etc.)
+# 3. Monorepo patterns (pnpm workspaces, turbo, nx, apps/ + packages/)
+# 4. Mobile Backend patterns (FCM, APNs, expo, react-native server)
+# 5. Data Pipeline patterns (airflow, kafka, spark, prefect, pandas ETL)
+# 6. CLI Tool patterns (commander, yargs, click, typer, cobra)
+# 7. Fullstack Web patterns (frontend + backend frameworks)
+# 8. API Backend patterns (backend only, no frontend framework)
+# 9. Directory structure fallback (frontend/backend, src/app/api, etc.)
 detect_project_type() {
   local target_dir="${1:-$TARGET_DIR}"
   local detected=""
@@ -52,6 +56,20 @@ detect_project_type() {
         || echo "$pkg_content" | grep -iq -e "llama\|mistral\|gemini\|claude" \
         || echo "$pkg_content" | grep -iq -e "vector\|embedding\|rag"; then
       detected="ai-app"
+
+    # Check for monorepo patterns
+    elif [ -f "$target_dir/pnpm-workspace.yaml" ] || [ -f "$target_dir/turbo.json" ] || [ -f "$target_dir/nx.json" ] \
+        || ([ -d "$target_dir/apps" ] && [ -d "$target_dir/packages" ]); then
+      detected="monorepo"
+
+    # Check for mobile backend patterns
+    elif echo "$pkg_content" | grep -iq -e "firebase-admin\|fcm\|apns\|expo-server\|push-notification"; then
+      detected="mobile-backend"
+
+    # Check for CLI tool patterns
+    elif echo "$pkg_content" | grep -iq -e "commander\|yargs\|meow\|oclif\|clipanion" \
+        && ! echo "$pkg_content" | grep -iq -e "react\|vue\|next\|angular"; then
+      detected="cli-tool"
 
     # Check for fullstack web patterns
     elif echo "$pkg_content" | grep -iq -e "react\|vue\|next\|nuxt\|svelte\|angular" \
@@ -86,6 +104,11 @@ detect_project_type() {
     # Check AI patterns first (priority)
     if echo "$req_content" | grep -iq -e "langchain\|llamaindex\|openai\|anthropic\|pinecone\|weaviate"; then
       detected="ai-app"
+    elif echo "$req_content" | grep -iq -e "apache-airflow\|prefect\|dagster\|kafka\|pyspark\|dbt\|luigi"; then
+      detected="data-pipeline"
+    elif echo "$req_content" | grep -iq -e "click\|typer\|argparse\|fire" \
+        && ! echo "$req_content" | grep -iq -e "fastapi\|flask\|django"; then
+      detected="cli-tool"
     elif echo "$req_content" | grep -iq -e "fastapi\|flask\|django\|starlette" \
         && echo "$req_content" | grep -iq -e "react\|vue\|django-rest-framework" 2>/dev/null; then
       detected="fullstack-web"

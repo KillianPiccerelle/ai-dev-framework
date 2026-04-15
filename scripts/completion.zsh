@@ -27,6 +27,10 @@ _ai_framework_templates=(
     'api-backend[Pure REST/GraphQL API]'
     'fullstack-web[Fullstack web application]'
     'ai-app[Application with LLM features]'
+    'mobile-backend[REST/GraphQL API for iOS/Android apps]'
+    'cli-tool[Command-line application]'
+    'data-pipeline[Batch or streaming data processing pipeline]'
+    'monorepo[Multi-package repository with workspaces]'
 )
 
 # Version patterns for 'version set'

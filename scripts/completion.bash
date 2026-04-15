@@ -14,7 +14,7 @@ _ai_framework_completion() {
     local version_subcommands="show check set help"
 
     # Templates for init
-    local templates="saas api-backend fullstack-web ai-app"
+    local templates="saas api-backend fullstack-web ai-app mobile-backend cli-tool data-pipeline monorepo"
 
     case $prev in
         ai-framework)
