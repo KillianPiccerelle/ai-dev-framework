@@ -12,16 +12,31 @@ Integrates GitHub with Claude Code via the official GitHub MCP server. Synchroni
 
 ## Prerequisites
 
-### 1. Install GitHub MCP Server
+### 1. Choose GitHub MCP Server Version
+
+**Option A: Remote Server (Recommended for most users)**
+- Hosted by GitHub at `https://api.githubcopilot.com/mcp/`
+- No installation required
+- Uses OAuth or Personal Access Token
+- Automatically updated by GitHub
+
+**Option B: Local Server (Self-hosted)**
+- Docker image: `ghcr.io/github/github-mcp-server`
+- Or npm package (deprecated but functional): `@modelcontextprotocol/server-github`
+
+### 2. Install Local Server (Optional)
 ```bash
-# Install the official GitHub MCP server
+# Option 1: Docker (recommended for local)
+docker pull ghcr.io/github/github-mcp-server
+
+# Option 2: npm (deprecated but functional)
 npm install -g @modelcontextprotocol/server-github
 
 # Verify installation
-github-mcp-server --version
+mcp-server-github --version  # Should show "GitHub MCP Server running on stdio"
 ```
 
-### 2. Configure GitHub Authentication
+### 3. Configure GitHub Authentication
 ```bash
 # Create a GitHub Personal Access Token with appropriate permissions
 # Required scopes: repo (full control of private repositories)
@@ -31,16 +46,57 @@ github-mcp-server --version
 export GITHUB_TOKEN="your_personal_access_token_here"
 ```
 
-### 3. Configure Claude Code
+### 4. Configure Claude Code
 Add to your `~/.claude/settings.json`:
+
+**For Remote Server (Recommended):**
 ```json
 {
   "mcpServers": {
     "github": {
-      "command": "github-mcp-server",
-      "args": ["--token", "${env.GITHUB_TOKEN}"],
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-github"
+      ],
       "env": {
-        "GITHUB_TOKEN": "${env.GITHUB_TOKEN}"
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "${env.GITHUB_TOKEN}"
+      }
+    }
+  }
+}
+```
+
+**For Docker Local Server:**
+```json
+{
+  "mcpServers": {
+    "github": {
+      "command": "docker",
+      "args": [
+        "run",
+        "-i",
+        "--rm",
+        "-e",
+        "GITHUB_PERSONAL_ACCESS_TOKEN",
+        "ghcr.io/github/github-mcp-server"
+      ],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "<YOUR_TOKEN>"
+      }
+    }
+  }
+}
+```
+
+**For npm Local Server:**
+```json
+{
+  "mcpServers": {
+    "github": {
+      "command": "mcp-server-github",
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "${env.GITHUB_TOKEN}"
       }
     }
   }
@@ -158,6 +214,42 @@ Show GitHub repository status and metrics.
 - Open PRs count (by status)
 - Recent activity summary
 - Health metrics
+
+## GitHub MCP Server Toolsets
+
+The GitHub MCP server exposes tools grouped into **toolsets** for granular control:
+
+### **Repos Tools**
+- `create_or_update_file` - Create/update files in repositories
+- `push_files` - Push multiple files in single commit
+- `search_repositories` - Search for GitHub repositories
+- `create_repository` - Create new repositories
+- `get_file_contents` - Get file/directory contents
+- `fork_repository` - Fork repositories
+
+### **Issues Tools**
+- `create_issue` - Create new issues
+- `search_issues` - Search issues/PRs
+- `get_issue` - Get issue details
+- `update_issue` - Update existing issues
+- `add_issue_comment` - Add comments to issues
+- `get_issue_comments` - Get issue comments
+
+### **Pull Requests Tools**
+- `create_pull_request` - Create new PRs
+- `get_pull_request` - Get PR details
+- `update_pull_request` - Update existing PRs
+- `add_pull_request_comment` - Add comments to PRs
+- `get_pull_request_comments` - Get PR comments
+- `get_pull_request_reviews` - Get PR reviews
+
+### **Actions Tools**
+- `get_workflow_runs` - Get workflow run status
+- `trigger_workflow` - Trigger GitHub Actions workflows
+
+### **Code Security Tools**
+- `get_code_scanning_alerts` - Get security scan alerts
+- `get_dependabot_alerts` - Get dependency vulnerability alerts
 
 ## Memory Integration
 
@@ -343,11 +435,20 @@ github-mcp-server --token $GITHUB_TOKEN --test
 /mcp-github status
 ```
 
-## Notes
+## Important Notes
+
+### Package Status
+- **`@modelcontextprotocol/server-github` npm package is DEPRECATED** but still functional
+- Development moved to `github/github-mcp-server` repository on GitHub
+- Recommended to use remote server (`https://api.githubcopilot.com/mcp/`) or Docker image
+- npm package may stop working in future versions of Claude Code
+
+### General Notes
 - First sync may take longer as it fetches all repository data
 - Memory file is updated incrementally on subsequent syncs
 - Add `memory/github-context.md` to `.gitignore` if it contains sensitive information
 - Rate limiting: GitHub API allows 5000 requests/hour for authenticated users
+- Consider using toolsets to limit permissions (e.g., read-only for certain operations)
 
 ---
 
