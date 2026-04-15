@@ -160,6 +160,7 @@ Workflows are invoked as slash commands from `.claude/commands/`. Each one defin
 | Setup CI | `/setup-ci` | Reads `memory/stack.md` and generates GitHub Actions CI pipeline, Dockerfile, `.env.example`, and optional deployment config (Railway, Fly.io, Vercel). |
 | Onboard | `/onboard` | Reads all `memory/` files and generates `docs/onboarding.md` — a complete getting-started guide for a new developer joining the project. |
 | Dependency update | `/dependency-update` | Securely updates project dependencies with safety checks and testing. Detects package manager, checks for updates, applies patch/minor updates safely, runs tests, generates report. |
+| Performance audit | `/perf-audit` | Analyzes application performance metrics for web, API, or CLI projects. Identifies bottlenecks, provides optimization recommendations, generates performance reports. |
 
 ---
 
