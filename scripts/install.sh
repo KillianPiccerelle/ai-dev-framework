@@ -69,6 +69,9 @@ case "\$1" in
   install)
     exec bash "\$FRAMEWORK_DIR/scripts/install.sh"
     ;;
+  version)
+    exec bash "\$FRAMEWORK_DIR/scripts/version.sh" "\$@"
+    ;;
   *)
     echo "Usage: ai-framework <command> [options]"
     echo ""
@@ -77,11 +80,15 @@ case "\$1" in
     echo "                    Templates: saas | api-backend | fullstack-web | ai-app"
     echo "  update            Update the framework to the latest version"
     echo "  install           Re-run global installation"
+    echo "  version [cmd]     Show version and check for updates"
+    echo "                    Subcommands: show, check, set <version>"
     echo ""
     echo "Examples:"
     echo "  ai-framework init saas"
     echo "  ai-framework init"
     echo "  ai-framework update"
+    echo "  ai-framework version"
+    echo "  ai-framework version check"
     ;;
 esac
 WRAPPER
@@ -122,6 +129,7 @@ echo "Use from anywhere:"
 echo "  ai-framework init saas     → new project"
 echo "  ai-framework init          → existing project"
 echo "  ai-framework update        → update the framework"
+echo "  ai-framework version       → check version and updates"
 echo ""
 echo "Next steps:"
 echo "  cd your-project && ai-framework init"

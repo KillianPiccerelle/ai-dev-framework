@@ -47,7 +47,7 @@ claude
 /new-project
 ```
 
-L'argument `[template]` est **optionnel**. Il préconfigure ton `CLAUDE.md` avec des règles spécifiques au type de projet. Si tu ne le précises pas, un `CLAUDE.md` minimal est généré et `/new-project` te posera les bonnes questions pour remplir `memory/`.
+L'argument `[template]` est **optionnel**. Il préconfigure ton `CLAUDE.md` avec des règles spécifiques au type de projet. Si tu ne le précises pas, le framework détecte automatiquement le type de projet à partir de `package.json`, `pyproject.toml`, ou d'autres fichiers de configuration, et suggère le template approprié. Si la détection échoue, un `CLAUDE.md` minimal est généré.
 
 | Template | À utiliser quand... |
 |----------|---------------------|
@@ -56,6 +56,21 @@ L'argument `[template]` est **optionnel**. Il préconfigure ton `CLAUDE.md` avec
 | `fullstack-web` | Tu construis une application web fullstack (frontend + backend) |
 | `ai-app` | Tu construis une application avec des fonctionnalités LLM |
 | *(aucun)* | Ton projet ne rentre dans aucune catégorie, ou tu préfères démarrer minimal |
+
+---
+
+## Commandes globales
+
+Une fois installé, la commande `ai-framework` est disponible globalement :
+
+| Commande | Description |
+|----------|-------------|
+| `ai-framework init [template]` | Initialiser le framework dans le projet actuel |
+| `ai-framework update` | Mettre à jour le framework vers la dernière version |
+| `ai-framework install` | Ré-exécuter l'installation globale |
+| `ai-framework version` | Afficher la version et vérifier les mises à jour |
+| `ai-framework version check` | Vérification silencieuse pour CI/CD (retourne codes de sortie) |
+| `ai-framework version set <version>` | Mettre à jour le fichier de version (processus de release) |
 
 ### Projet existant
 
@@ -135,7 +150,7 @@ Les workflows sont invoqués comme slash commands depuis `.claude/commands/`. Ch
 | Déboguer | `/debug-issue` | Cause racine obligatoire avant tout fix. Reproduire → tracer → formuler 3 hypothèses → tester → corriger. Le test de reproduction devient un test de régression permanent. |
 | Refactoriser | `/refactor` | Refactoring incrémental sécurisé. Les tests doivent passer avant de commencer. Analyser → planifier → valider → exécuter en petits commits atomiques. |
 | Générer des tests | `/gen-tests` | Audit de couverture d'abord, puis génération ciblée sur les zones non couvertes. Respecte le comportement actuel. Ne modifie jamais le code source pour faire passer les tests. |
-| Statut du projet | `/project-status` | Rapport de santé et de progression — couverture de tests, nombre de TODO, nombre d'ADRs, résumé de la dernière session, prochaine action recommandée. Lecture seule. |
+| Statut du projet | `/project-status` | Rapport de santé et de progression avec historique horodaté — couverture de tests, nombre de TODO, nombre d'ADRs, changements récents, graphiques ASCII de progression. Génère `docs/status-YYYY-MM-DD.md` et garde les 10 derniers rapports. |
 | Mettre à jour | `/upgrade-framework` | Migration non-destructive depuis une ancienne version. Détecte la config existante, la sauvegarde, installe les agents et workflows manquants, fusionne la mémoire. |
 | Audit de sécurité | `/security-audit` | Audit complet : cartographie des surfaces d'attaque → security-reviewer → cross-check QA. Produit `docs/security-report.md` avec les findings classés critical/high/medium/low. |
 | Configurer la CI | `/setup-ci` | Lit `memory/stack.md` et génère un pipeline CI GitHub Actions, un Dockerfile, `.env.example`, et la config de déploiement optionnelle (Railway, Fly.io, Vercel). |

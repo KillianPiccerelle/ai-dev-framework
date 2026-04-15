@@ -46,7 +46,7 @@ claude
 /new-project
 ```
 
-The `[template]` argument is **optional**. It pre-configures your `CLAUDE.md` with rules specific to your project type. If you skip it, a minimal `CLAUDE.md` is generated and `/new-project` will ask you the right questions to fill in `memory/`.
+The `[template]` argument is **optional**. It pre-configures your `CLAUDE.md` with rules specific to your project type. If you skip it, the framework auto-detects your project type from `package.json`, `pyproject.toml`, or other configuration files and suggests the appropriate template. If detection fails, a minimal `CLAUDE.md` is generated.
 
 | Template | Use when... |
 |----------|-------------|
@@ -55,6 +55,21 @@ The `[template]` argument is **optional**. It pre-configures your `CLAUDE.md` wi
 | `fullstack-web` | Building a fullstack web application (frontend + backend) |
 | `ai-app` | Building an application with LLM features |
 | *(none)* | Your project doesn't fit any category, or you prefer to start minimal |
+
+---
+
+## Global commands
+
+Once installed, the `ai-framework` command is available globally:
+
+| Command | Description |
+|---------|-------------|
+| `ai-framework init [template]` | Initialize the framework in the current project |
+| `ai-framework update` | Update the framework to the latest version |
+| `ai-framework install` | Re-run global installation |
+| `ai-framework version` | Show version and check for updates |
+| `ai-framework version check` | Silent check for CI/CD (returns exit codes) |
+| `ai-framework version set <version>` | Update version file (release process) |
 
 ### Existing project
 
@@ -134,7 +149,7 @@ Workflows are invoked as slash commands from `.claude/commands/`. Each one defin
 | Debug issue | `/debug-issue` | Root cause mandatory before any fix. Reproduce → trace → formulate 3 hypotheses → test → fix. The reproduction test becomes a permanent regression test. |
 | Refactor | `/refactor` | Safe incremental refactoring. Tests must pass before starting. Analyze → plan → validate → execute in small atomic commits. |
 | Generate tests | `/gen-tests` | Coverage audit first, then targeted generation on uncovered areas. Respects current behavior. Never modifies source code to make tests pass. |
-| Project status | `/project-status` | Health and progress report — test coverage, TODO count, ADR count, last session summary, recommended next action. Read-only. |
+| Project status | `/project-status` | Health and progress report with timestamped history — test coverage, TODO count, ADR count, recent changes, ASCII progress charts. Generates `docs/status-YYYY-MM-DD.md` and keeps last 10 reports. |
 | Upgrade framework | `/upgrade-framework` | Non-destructive migration from an older version. Detects existing config, backs it up, installs missing agents and workflows, merges memory. |
 | Security audit | `/security-audit` | Full security audit: codebase mapping → security-reviewer → QA cross-check. Produces `docs/security-report.md` with findings classified critical/high/medium/low. |
 | Setup CI | `/setup-ci` | Reads `memory/stack.md` and generates GitHub Actions CI pipeline, Dockerfile, `.env.example`, and optional deployment config (Railway, Fly.io, Vercel). |

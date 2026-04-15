@@ -28,10 +28,18 @@ echo ""
 
 cd "$FRAMEWORK_DIR"
 
+# Try to get version from VERSION file first, then git
+if [ -f "VERSION" ]; then
+    CURRENT_VERSION=$(cat VERSION 2>/dev/null | head -1 | tr -d '[:space:]' || echo "unknown")
+    log "Current version : $CURRENT_VERSION"
+else
+    CURRENT_VERSION="unknown"
+fi
+
 CURRENT_COMMIT=$(git rev-parse --short HEAD 2>/dev/null || echo "unknown")
 CURRENT_DATE=$(git log -1 --format="%ci" 2>/dev/null | cut -d' ' -f1 || echo "unknown")
 
-log "Current version : $CURRENT_COMMIT ($CURRENT_DATE)"
+log "Git commit      : $CURRENT_COMMIT ($CURRENT_DATE)"
 
 # ─── Step 2: Pull latest changes ──────────────────────────────────────────────
 
@@ -118,7 +126,17 @@ echo ""
 
 # ─── Summary ──────────────────────────────────────────────────────────────────
 
-ok "Framework updated: $CURRENT_COMMIT → $NEW_COMMIT"
+# Get new version if available
+if [ -f "VERSION" ]; then
+    NEW_VERSION=$(cat VERSION 2>/dev/null | head -1 | tr -d '[:space:]' || echo "unknown")
+    if [ "$CURRENT_VERSION" != "unknown" ] && [ "$NEW_VERSION" != "unknown" ]; then
+        ok "Framework updated: $CURRENT_VERSION → $NEW_VERSION"
+    else
+        ok "Framework updated: $CURRENT_COMMIT → $NEW_COMMIT"
+    fi
+else
+    ok "Framework updated: $CURRENT_COMMIT → $NEW_COMMIT"
+fi
 echo ""
 echo "  Agents : ~/.claude/agents/ ($AGENT_COUNT agents)"
 echo "  Skills : ~/.claude/skills/"

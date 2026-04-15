@@ -1,5 +1,7 @@
 # Project progress
 
+Latest status report: [status-2026-04-15.md](../../docs/status-2026-04-15.md)
+
 > Updated at the end of each work session.
 
 ## Overall status
