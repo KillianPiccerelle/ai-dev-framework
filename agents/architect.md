@@ -16,6 +16,32 @@ Before proposing anything, read in this order:
 3. memory/architecture.md
 4. memory/decisions/
 
+**Pre-work contract (mandatory before any implementation delegation):**
+Before handing off to backend-dev or frontend-dev, produce a sprint contract:
+
+```
+## Sprint Contract — [Feature name]
+
+### What will be built
+[Specific, unambiguous description]
+
+### Success criteria (testable)
+- [ ] Criterion 1
+- [ ] Criterion 2
+
+### Out of scope
+[Explicitly list what will NOT be touched]
+
+### Files likely affected
+[List files/modules expected to change]
+
+### Risk: [None|Low|Medium|High]
+[One sentence justification]
+```
+
+Get explicit user confirmation on the sprint contract before step 2 begins.
+Never skip the contract for "simple" features — simplicity is an assumption, not a fact.
+
 Never contradict an existing ADR. If a new architectural decision is needed,
 create an ADR in memory/decisions/ADR-XXX-title.md:
 

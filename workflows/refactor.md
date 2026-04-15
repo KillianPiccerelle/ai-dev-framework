@@ -26,6 +26,11 @@ Produce prioritized list with effort estimates (small / medium / large).
 Present issues and plan. Ask which points to address this session.
 Never refactor everything at once. Wait for validation before continuing.
 
+> Context reset point: if the refactor spans >3 files or the analysis session
+> was long, start a fresh Claude Code session here. Summarize the plan in
+> a file `docs/refactor-plan.md` before closing, then load it at the start
+> of the new session alongside memory/ files.
+
 ## Step 5 — Incremental execution (agent: backend-dev or frontend-dev)
 For each validated point: change → run tests → continue or revert.
 Atomic commits: refactor(scope): description

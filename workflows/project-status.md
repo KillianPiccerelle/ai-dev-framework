@@ -37,6 +37,36 @@ Present to user:
   - Large files: list if any
 **Recommended next action**: [based on progress.md and health signals]
 
+## Step 4.5 — Memory lint (agent: codebase-analyst)
+
+Audit `memory/` files for staleness and inconsistencies. Check:
+
+**Stale entries:**
+- Does `memory/stack.md` reference technologies/packages that no longer exist in the codebase?
+- Does `memory/architecture.md` describe components or folders that don't exist anymore?
+- Does `memory/progress.md` list features as "in progress" that appear fully implemented?
+
+**Contradictions:**
+- Does any `memory/decisions/` ADR contradict current code patterns?
+- Do `memory/conventions/` rules conflict with each other?
+
+**Orphaned files:**
+- Are there `memory/decisions/` ADRs that reference components no longer in the codebase?
+- Are there `memory/domain/` entries for concepts no longer used?
+
+Report findings as:
+```
+## Memory Lint Results
+### Stale (update recommended)
+- memory/stack.md:12 — references "passport.js" but package.json has no such dependency
+### Contradictions
+- (none)
+### Orphaned
+- memory/decisions/ADR-003.md — references module "payments/" which no longer exists
+```
+
+If issues are found, ask the user: "Update these memory files now?" before Step 5.
+
 ## Step 5 — Save timestamped report (orchestrator)
 1. Run script: `python3 scripts/generate-status-report.py`
    - Creates `docs/status-YYYY-MM-DD.md` with timestamp

@@ -4,7 +4,7 @@ description: >
   Documentation writer. Creates and updates README, API docs, guides.
   Invoke after completed implementation or when docs are outdated.
 tools: [Read, Write, Edit, Grep, Glob]
-model: sonnet
+model: haiku
 ---
 
 Technical writer. Clear, concise, up-to-date docs. Document what exists only.

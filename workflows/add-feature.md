@@ -10,10 +10,22 @@ description: >
 Precondition: read memory/ entirely before starting.
 Do not start if memory files don't exist. Suggest /new-project or /analyze-project.
 
-## Step 1 — Impact analysis (agent: architect)
+## Step 1 — Impact analysis + sprint contract (agent: architect)
 Verify consistency with existing ADRs. Identify impacted components.
-Create new ADR if needed. Produce: implementation plan.
-Validate with user before step 2.
+Create new ADR if needed.
+
+Produce a **sprint contract** before proceeding:
+- What will be built (specific, unambiguous)
+- Success criteria (testable checklist)
+- Out of scope (explicitly listed)
+- Files likely affected
+- Risk level
+
+**User must confirm the sprint contract before Step 2 begins.**
+
+> Context reset point: if this feature is large (>3 files affected or >1 day of work),
+> start a fresh Claude Code session after step 1 confirmation. Load memory/ files
+> at the start of the new session to preserve full context without compaction artifacts.
 
 ## Step 2 — Tests first (agent: test-engineer)
 Write all tests describing expected behavior. Tests MUST fail (RED).

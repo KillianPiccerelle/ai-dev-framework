@@ -358,6 +358,67 @@ check_version_file() {
     fi
 }
 
+check_framework_files() {
+    check "Checking framework file structure..."
+
+    local issues=0
+
+    # Check all agents have required frontmatter fields
+    for agent_file in "$FRAMEWORK_DIR/agents/"*.md; do
+        [ -f "$agent_file" ] || continue
+        local agent_name=$(basename "$agent_file")
+
+        if ! grep -q "^name:" "$agent_file"; then
+            warn "Agent $agent_name missing 'name:' field"
+            issues=$((issues + 1))
+        fi
+        if ! grep -q "^description:" "$agent_file"; then
+            warn "Agent $agent_name missing 'description:' field"
+            issues=$((issues + 1))
+        fi
+        if ! grep -q "^tools:" "$agent_file"; then
+            warn "Agent $agent_name missing 'tools:' field"
+            issues=$((issues + 1))
+        fi
+    done
+
+    # Check all workflows have Memory update section
+    for wf_file in "$FRAMEWORK_DIR/workflows/"*.md; do
+        [ -f "$wf_file" ] || continue
+        local wf_name=$(basename "$wf_file")
+
+        if ! grep -qi "memory update" "$wf_file"; then
+            warn "Workflow $wf_name missing 'Memory update' section"
+            issues=$((issues + 1))
+        fi
+    done
+
+    # Check all skills have SKILL.md
+    for skill_dir in "$FRAMEWORK_DIR/skills/"*/; do
+        [ -d "$skill_dir" ] || continue
+        local skill_name=$(basename "$skill_dir")
+
+        if [ ! -f "$skill_dir/SKILL.md" ]; then
+            warn "Skill $skill_name missing SKILL.md"
+            issues=$((issues + 1))
+        elif ! grep -q "^name:" "$skill_dir/SKILL.md"; then
+            warn "Skill $skill_name/SKILL.md missing 'name:' field"
+            issues=$((issues + 1))
+        fi
+    done
+
+    if [ $issues -eq 0 ]; then
+        ok "All framework files valid (agents, workflows, skills)"
+        increment_pass
+    elif [ $issues -le 3 ]; then
+        warn "$issues minor file issues found (see above)"
+        increment_warn
+    else
+        error "$issues file issues found — run 'ai-framework list' to inspect"
+        increment_fail
+    fi
+}
+
 main() {
     echo ""
     log "ai-dev-framework v3 — Health Check"
@@ -374,6 +435,7 @@ main() {
     check_python
     check_git_status
     check_version_file
+    check_framework_files
 
     # Summary
     print_summary
