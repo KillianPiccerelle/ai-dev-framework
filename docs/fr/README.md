@@ -160,6 +160,7 @@ Les workflows sont invoqués comme slash commands depuis `.claude/commands/`. Ch
 | Audit de sécurité | `/security-audit` | Audit complet : cartographie des surfaces d'attaque → security-reviewer → cross-check QA. Produit `docs/security-report.md` avec les findings classés critical/high/medium/low. |
 | Configurer la CI | `/setup-ci` | Lit `memory/stack.md` et génère un pipeline CI GitHub Actions, un Dockerfile, `.env.example`, et la config de déploiement optionnelle (Railway, Fly.io, Vercel). |
 | Onboarding | `/onboard` | Lit tous les fichiers `memory/` et génère `docs/onboarding.md` — un guide complet de prise en main pour un nouveau développeur qui rejoint le projet. |
+| Mise à jour dépendances | `/dependency-update` | Met à jour les dépendances du projet de manière sécurisée avec vérifications et tests. Détecte le gestionnaire de packages, vérifie les mises à jour, applique les updates patch/minor en sécurité, exécute les tests, génère un rapport. |
 
 ---
 
