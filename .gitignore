@@ -9,6 +9,12 @@ memory/domain/
 FRAMEWORK_CONTEXT.md
 TEST_CODE_REVIEW_GRAPH.md
 
+# Generated docs (audit templates, status reports, veille — local only)
+docs/status-*.md
+docs/*-audit-template-*.md
+docs/veille-*.md
+docs/refactor-plan.md
+
 # Environment
 .env
 .env.*
